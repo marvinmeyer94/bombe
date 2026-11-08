@@ -93,6 +93,21 @@ button{font:inherit;color:inherit;cursor:pointer}
 .note li.wolf{color:#555a6b}
 .note li .paw{display:inline-block;width:20px;height:20px;vertical-align:-3px;margin-right:5px}
 #maeh.wolf .b-fill{background:#a9b0c4}
+#maeh.zap .b-fill{background:#7fd4ff}
+#banner{position:fixed;z-index:11;left:50%;top:calc(72px + env(safe-area-inset-top,0px));transform:translateX(-50%) rotate(-2deg);display:flex;align-items:center;gap:10px;background:var(--ink);color:#fff;border:3px solid var(--ink);border-radius:14px;box-shadow:4px 4px 0 rgba(0,0,0,.25);padding:10px 18px;font-family:var(--display);font-size:clamp(22px,4vw,34px);letter-spacing:1px;white-space:nowrap;pointer-events:none;max-width:calc(100vw - 32px)}
+#banner .ph-i{width:28px;height:28px;margin:0}
+#banner.go{background:var(--dyn)}
+#banner.night{background:#26357e}
+#banner.pulse{animation:bpulse .7s ease-in-out infinite alternate}
+@keyframes bpulse{to{transform:translateX(-50%) rotate(-2deg) scale(1.08)}}
+.pill.phase .ph-i{margin-right:0}
+.btn.gate-btn{background:var(--dyn);color:#fff;animation:pulse .5s ease-in-out infinite alternate}
+.pill.phase[data-ph="night"]{background:#26357e;color:#fff}
+.rule-demo{display:flex;align-items:center;justify-content:center;gap:16px;font-weight:700;font-size:20px}
+.rule-plate{display:inline-flex;align-items:center;gap:8px;border:var(--line) solid var(--ink);border-radius:10px;padding:8px 14px;background:#fff8d1;box-shadow:3px 3px 0 var(--ink)}
+.rule-plate.night{background:#dfe4ff}
+.rule-plate .ph-i{width:26px;height:26px;margin:0}
+.rule-arrow{font-size:34px;line-height:1}
 .howto{position:fixed;z-index:3;left:max(16px,env(safe-area-inset-left,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));max-width:min(340px,calc(100vw - 440px));font-size:14px;line-height:1.4;margin:0;padding:8px 12px;background:rgba(255,255,255,.85);border:2.5px solid var(--ink);border-radius:12px}
 .slide-wrap{position:sticky;bottom:0;flex:none;padding-top:4px}
 .slide{position:relative;height:68px;border:var(--line) solid var(--ink);border-radius:999px;background:var(--night);box-shadow:var(--pop);overflow:hidden;user-select:none;touch-action:none}
@@ -145,6 +160,16 @@ button{font:inherit;color:inherit;cursor:pointer}
 .hero svg{width:110px;height:90px}
 .modal p{margin:0;line-height:1.45;max-width:60ch}
 .modal h2{margin:0;font-family:var(--display);font-weight:400;font-size:clamp(36px,7vw,52px);letter-spacing:1px;line-height:1;text-wrap:balance}
+.lvl-worlds{display:grid;gap:14px}
+.world-h{margin:0 0 8px;font-family:var(--display);font-weight:400;font-size:22px;letter-spacing:1px}
+.world-h span{color:var(--dyn)}
+.world-n{font-family:var(--body);font-size:14px;font-weight:600;color:var(--muted);letter-spacing:0;margin-left:6px}
+.world-lock{margin:-4px 0 8px;font-size:14px;color:var(--dyn);font-weight:600}
+.lvl-tile .miss{color:var(--dyn);font-weight:600;font-size:13px}
+.ph-i{display:inline-block;width:20px;height:20px;vertical-align:-4px;margin-right:5px}
+.ph-day{color:#8a5a00}
+.ph-night{color:#26357e}
+[data-phase].off{opacity:.35}
 .lvl-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
 .lvl-tile{display:grid;gap:2px;justify-items:start;text-align:left;background:#fff;border:var(--line) solid var(--ink);border-radius:14px;padding:10px 12px;box-shadow:3px 3px 0 var(--ink)}
 .lvl-tile:hover{background:#fff8d1}
@@ -205,6 +230,9 @@ button{font:inherit;color:inherit;cursor:pointer}
   #tries{display:none}
   .hud-right{gap:6px}
   #menuBtn svg{display:block}
+  .pill.phase .lbl{display:none}
+  .btn.gate-btn{position:fixed;z-index:12;top:calc(104px + env(safe-area-inset-top,0px));right:max(16px,env(safe-area-inset-right,0px));font-size:16px;padding:8px 14px}
+  #banner{top:calc(54px + env(safe-area-inset-top,0px))}
   #menuBtn .lbl{display:none}
   .panel,.howto{display:none}
   .deck{display:block}
@@ -224,6 +252,8 @@ button{font:inherit;color:inherit;cursor:pointer}
   <h1 class="logo" aria-label="Schaf stellen">SCHA<span class="r" id="logoR">R</span>F STELLEN</h1>
   <span class="pill status" id="status" data-state="gesichert"><span class="led"></span><span id="statusText">GESICHERT</span></span>
   <span class="pill timer" id="timerPill" hidden aria-label="Restzeit der Lunte"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1c1 3 4 4 4 8a4 4 0 0 1-8 0c0-2 1-3 2-4 0 2 1 3 2 3 0-3-1-5 0-7z" fill="#ff8a1f" stroke="#1d1a2b" stroke-width="1.4" stroke-linejoin="round"/></svg><span id="timerText">2:00</span></span>
+  <span class="pill phase" id="phaseChip" hidden></span>
+  <button class="btn gate-btn" id="gateBtn" hidden>Gatter zu!</button>
   <div class="hud-right">
     <span class="pill" id="tries">Versuche: 0</span>
     <button class="btn icon" id="soundBtn" aria-label="Ton aus" title="Ton an/aus"></button>
@@ -260,6 +290,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 </div>
 <p class="howto">Kabel ins passende Loch ziehen. Minutenzeiger am Wecker drehen oder mit dem Mausrad scrollen. Bombe ziehen zum Drehen. Wenn alles passt: Schaf rüberschieben.</p>
 <div id="toast" role="status" aria-live="polite"></div>
+<div id="banner" hidden aria-live="polite"></div>
 <div id="count" aria-hidden="true"></div>
 <div id="flash"></div>
 <div id="maeh" hidden><div class="burst"><div class="b-ink"></div><div class="b-fill"></div><div class="txt">MÄÄÄÄH!</div></div></div>
@@ -271,11 +302,21 @@ button{font:inherit;color:inherit;cursor:pointer}
       <p class="big-logo" id="startTitle">SCHA<span class="r">R</span>F STELLEN</p>
     </div>
     <p>Vor dir liegt eine Bombe aus Dynamit, Kabeln und einem alten Wecker. Steck die Kabel richtig, stell die Weckzeit ein und schieb zum Schluss das Schaf rüber. Dann ist sie scharf gestellt. Oder eher Schaf gestellt.</p>
-    <div class="lvl-grid" id="levelGrid"></div>
+    <div class="lvl-worlds" id="levelGrid"></div>
     <div class="actions">
       <button class="btn primary" id="playBtn">Los, Schaf stellen!</button>
     </div>
     <p class="fine">Mit Ton spielen. Den Hinweiszettel genau lesen: Jedes Level hat eine andere Kombination.</p>
+  </div>
+</div>
+
+<div class="overlay" id="ruleScreen" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="ruleTitle">
+    <h2 id="ruleTitle">Neue Regel: die Nachtregel</h2>
+    <div class="rule-demo"><span class="rule-plate" id="ruleSun">Sonne</span><span class="rule-arrow" aria-hidden="true">⇄</span><span class="rule-plate night" id="ruleMoon">Mond</span></div>
+    <p>Wenn es Nacht wird, tauschen <b>Sonne</b> und <b>Mond</b> die Plätze. Ein Kabel, das tagsüber an die Sonne gehört, muss nachts an den Mond, und umgekehrt. Alle anderen Anschlüsse bleiben gleich.</p>
+    <p>Entscheidend ist, ob <b>in dem Moment</b> Tag oder Nacht ist, in dem du das Schaf rüberschiebst. Oben neben der Lunte siehst du immer, was gerade gilt.</p>
+    <div class="actions"><button class="btn primary" id="ruleOk">Verstanden</button></div>
   </div>
 </div>
 
@@ -300,37 +341,85 @@ const $=s=>document.querySelector(s);
 
 /* ------------------------------------------------------------------ Daten */
 const LEVELS=[
-  {id:'l1',name:'Lämmchen',sticks:3,wires:['rot','blau'],ports:['sonne','mond'],
+  {id:'l1',world:1,name:'Lämmchen',sticks:3,wires:['rot','blau'],ports:['sonne','mond'],
    solution:{rot:'sonne',blau:'mond'},time:[6,0],
    clues:['Rot kommt an die Sonne.','Blau kommt an den Mond.','Weckzeit: 6:00 Uhr. Schafe sind Frühaufsteher.','Zum Schluss das Schaf nach rechts schieben.']},
-  {id:'l2',name:'Schäfchen zählen',sticks:4,wires:['rot','gelb','gruen'],ports:['sonne','mond','stern'],
+  {id:'l2',world:1,name:'Schäfchen zählen',sticks:4,wires:['rot','gelb','gruen'],ports:['sonne','mond','stern'],
    solution:{gelb:'stern',rot:'sonne',gruen:'mond'},time:[4,30],
    clues:['Gelb hängt weder an der Sonne noch am Mond.','Rot hat Angst im Dunkeln und meidet den Mond.','Weckzeit: so viele Stunden, wie Dynamitstangen an der Bombe kleben. Und eine halbe dazu.']},
-  {id:'l3',name:'Wolf im Schafspelz',sticks:5,wires:['rot','blau','gelb','gruen'],ports:['sonne','mond','stern','herz'],
+  {id:'l3',world:1,name:'Wolf im Schafspelz',sticks:5,wires:['rot','blau','gelb','gruen'],ports:['sonne','mond','stern','herz'],
    solution:{rot:'herz',gruen:'mond',blau:'stern',gelb:'sonne'},time:[8,45],timeLimit:120,
    clues:['Ab jetzt brennt die Lunte. Beeil dich!','Das Herz ist rot. Ist doch klar.','Blau und Grün hängen an Dingen, die nachts leuchten.','Blau hält Abstand zum Mond.','Gelb nimmt, was übrig bleibt.','Der Wolf kommt um 12 Uhr nachts. Das Schaf will 3 Stunden und 15 Minuten früher wach sein.']},
-  {id:'l4',name:'Schwarzes Schaf',sticks:4,wires:['rot','blau','gelb','gruen','schwarz'],ports:['sonne','mond','stern','herz'],
+  {id:'l4',world:1,name:'Schwarzes Schaf',sticks:4,wires:['rot','blau','gelb','gruen','schwarz'],ports:['sonne','mond','stern','herz'],
    solution:{schwarz:'mond',rot:'herz',blau:'stern',gruen:'sonne'},time:[9,20],timeLimit:110,
    clues:['Ein Kabel ist das schwarze Schaf und bleibt lose. Es ist aber nicht das schwarze.','Das schwarze Kabel gehört zum Mond.','Lose bleibt das Kabel in der Farbe der Sonne.','Rot sitzt ganz außen, direkt neben Blau.','Weckzeit: 9 Uhr und so viele Minuten, wie Kabel mal Anschlüsse ergeben.']},
-  {id:'l5',name:'Geisterschaf',sticks:5,wires:['rot','blau','gelb','gruen','lila'],ports:['sonne','mond','stern','herz','blume'],
+  {id:'l5',world:1,name:'Geisterschaf',sticks:5,wires:['rot','blau','gelb','gruen','lila'],ports:['sonne','mond','stern','herz','blume'],
    solution:{lila:'blume',gruen:'herz',blau:'sonne',gelb:'mond',rot:'stern'},time:[10,50],timeLimit:100,reverse:true,
    clues:['Heute läuft das Schaf rückwärts: von rechts nach links schieben.','Die Blume blüht lila.','Grün wächst direkt neben der Blume.','Blau sitzt ganz links.','Gelb leuchtet nachts, aber nie neben dem Herz.','Weckzeit: Stunde = Kabel plus Anschlüsse. Minuten = Dynamitstangen mal zehn.']},
-  {id:'l6',name:'Der Wolf kommt',sticks:4,wires:['rot','blau','gelb','gruen'],ports:['sonne','mond','stern','herz'],
+  {id:'l6',world:2,name:'Der Wolf kommt',sticks:4,wires:['rot','blau','gelb','gruen'],ports:['sonne','mond','stern','herz'],
    solution:{gelb:'sonne',blau:'mond',rot:'stern',gruen:'herz'},time:[3,40],timeLimit:120,wolf:{every:[11,16],walk:9},
    clues:['Ein Wolf schleicht herum und reißt Kabel raus. Tipp ihn an, dann haut er ab.','Gelb hängt an der Sonne.','Grün hängt am Herz.','Blau sitzt direkt neben Gelb.','Weckzeit: 3 Uhr und so viele Minuten, wie Kabel mal zehn.']},
-  {id:'l7',name:'Wolfsgeheul',sticks:5,wires:['rot','blau','gelb','gruen','lila'],ports:['sonne','mond','stern','herz','blume'],
+  {id:'l7',world:2,name:'Wolfsgeheul',sticks:5,wires:['rot','blau','gelb','gruen','lila'],ports:['sonne','mond','stern','herz','blume'],
    solution:{lila:'sonne',blau:'mond',gelb:'stern',gruen:'herz',rot:'blume'},time:[9,25],timeLimit:150,wolf:{every:[12,18],walk:9},
    clues:['Hinweise mit Pfote stammen vom Wolf und sind gelogen: Das Gegenteil stimmt.',{t:'Rot hängt nicht ganz außen.',wolf:true},'Lila hängt ganz außen.',{t:'Gelb hängt nicht am Stern.',wolf:true},'Grün sitzt direkt neben Gelb.','Blau hängt an etwas, das nachts leuchtet.',{t:'Lila hängt an der Blume.',wolf:true},'Weckzeit: Stunde = Pfoten-Hinweise mal 3. Minuten = Kabel mal 5.']},
-  {id:'l8',name:'Das Rudel',sticks:6,wires:['rot','blau','gelb','gruen','weiss','orange'],ports:['sonne','mond','stern','herz','blume','glocke'],
+  {id:'l8',world:2,name:'Das Rudel',sticks:6,wires:['rot','blau','gelb','gruen','weiss','orange'],ports:['sonne','mond','stern','herz','blume','glocke'],
    solution:{blau:'sonne',weiss:'mond',orange:'stern',rot:'herz',gruen:'blume',gelb:'glocke'},time:[7,45],timeLimit:150,wolf:{every:[9,14],walk:7.5},
    clues:['Pfoten-Hinweise sind gelogen: Das Gegenteil stimmt.','Das Herz ist rot.',{t:'Weiß hängt nicht am Mond.',wolf:true},'Orange sitzt direkt neben Weiß.',{t:'Gelb hängt an der Sonne.',wolf:true},'Grün sitzt direkt neben dem Herz.','Blau hängt ganz außen.',{t:'Gelb und Grün sind keine Nachbarn.',wolf:true},'Weckzeit: eine Viertelstunde, bevor das Rudel um 8 Uhr jagt.']},
-  {id:'l9',name:'Falscher Pelz',sticks:5,wires:['rot','blau','gelb','gruen','weiss','schwarz'],ports:['sonne','mond','stern','herz','blume'],
+  {id:'l9',world:2,name:'Falscher Pelz',sticks:5,wires:['rot','blau','gelb','gruen','weiss','schwarz'],ports:['sonne','mond','stern','herz','blume'],
    solution:{gelb:'sonne',weiss:'mond',blau:'stern',rot:'herz',gruen:'blume'},time:[11,30],timeLimit:160,wolf:{every:[10,15],walk:7.5},
    clues:['Einer der Kabel-Hinweise stammt vom Wolf und ist gelogen. Welcher, verrät er nicht.','Schwarz bleibt lose.','Weiß hängt am Mond.','Rot hängt am Herz.','Gelb hängt am Mond.','Blau sitzt direkt neben Weiß.','Grün hängt ganz außen.','Gelb und Grün sind keine Nachbarn.','Gelb hängt weiter links als Grün.','Blau hängt nicht an der Sonne.','Weckzeit (ehrlich): halb zwölf.']},
-  {id:'l10',name:'Leitwolf',sticks:6,wires:['rot','blau','gelb','gruen','weiss','orange'],ports:['sonne','mond','stern','herz','blume','glocke'],
+  {id:'l10',world:2,name:'Leitwolf',sticks:6,wires:['rot','blau','gelb','gruen','weiss','orange'],ports:['sonne','mond','stern','herz','blume','glocke'],
    solution:{orange:'sonne',weiss:'mond',blau:'stern',rot:'herz',gruen:'blume',gelb:'glocke'},time:[3,30],timeLimit:170,reverse:true,wolf:{every:[7,11],walk:7,both:true},
    clues:['Das Schaf läuft rückwärts: von rechts nach links schieben. Und es kommen Wölfe von beiden Seiten.','Einer der Kabel-Hinweise ist gelogen.','Orange hängt ganz außen.','Rot hängt an der Blume.','Blau hängt am Stern.','Grün hängt weiter links als Gelb.','Weiß sitzt direkt neben Blau.','Rot hängt am Herz.','Orange und Grün sind keine Nachbarn.','Gelb hängt ganz außen.','Grün hängt nicht am Herz.','Weckzeit (ehrlich): Stunde = alle Glocken an der Bombe, auch die am Wecker. Minuten = Dynamitstangen mal fünf.']},
+  {id:'l11',world:3,name:'Gute Nacht',sticks:5,wires:['rot','blau','gelb','gruen','weiss'],ports:['sonne','mond','stern','herz','blume'],
+   solution:{rot:'sonne',weiss:'mond',blau:'stern',gruen:'herz',gelb:'blume'},time:[10,10],timeLimit:150,night:true,dark:true,wolf:{every:[14,20],walk:9.5},
+   clues:['Stockdunkel! Wohin dein Finger oder die Maus zeigt, leuchtet die Taschenlampe. Der Wolf schleicht auch im Dunkeln herum.','Weiß hängt am Mond.','Rot hängt direkt links neben Weiß.','Grün hängt am Herz.','Gelb hängt weiter rechts als Blau.','Weckzeit: zehn nach zehn.']},
+  {id:'l12',world:3,name:'Einschlafhilfe',sticks:4,wires:['rot','blau','gelb','lila'],ports:['sonne','mond','stern','herz'],
+   solution:{lila:'stern',gelb:'mond',rot:'herz',blau:'sonne'},timeFn:n=>[n,30],count:{min:3,max:9},timeLimit:140,night:true,wolf:{every:[13,19],walk:9},
+   clues:['Gleich springen Schafe über den Zaun. Wenn „Jetzt zählen!“ erscheint, gut aufpassen: Sie springen nur einmal. Solange gezählt wird, ruht die Lunte.','Lila hängt nicht ganz außen.','Gelb hängt direkt links neben Lila.','Rot hängt am Herz.','Blau hängt ganz außen.','Weckzeit: Stunde = gezählte Schafe. Minuten = 30.']},
+  {id:'l13',world:3,name:'Dämmerung',sticks:5,wires:['rot','blau','gelb','gruen','lila'],ports:['sonne','mond','stern','herz','blume'],
+   solution:{lila:'blume',rot:'herz',gelb:'sonne',blau:'mond',gruen:'stern'},time:[7,15],timeLimit:150,daySwitch:35,nightSwap:true,intro:'nightRule',wolf:{every:[14,20],walk:9},
+   clues:['Neue Nachtregel: Wird es Nacht, tauschen Sonne und Mond die Plätze. Was an die Sonne gehört, kommt nachts an den Mond, und umgekehrt.','Hier wird es nach einer Weile Nacht. Wer dann scharf stellt, muss vorher umstecken.','Lila hängt an der Blume.','Rot hängt am Herz.','Gelb hängt an der Sonne.','Blau sitzt direkt neben Gelb.','Grün nimmt, was übrig bleibt.','Weckzeit: Viertel nach sieben.']},
+  {id:'l14',world:3,name:'Mondschaf',sticks:4,wires:['rot','blau','gelb','weiss'],ports:['sonne','mond','stern','herz'],
+   solution:{weiss:'mond',blau:'sonne',rot:'stern',gelb:'herz'},timeFn:n=>[n,45],count:{min:4,max:10,decoy:true},timeLimit:150,cycle:{day:[22,32],night:[14,20]},nightSwap:true,darkAtNight:true,wolf:{every:[12,18],walk:8.5},
+   clues:['Erst zählen: Nur echte Schafe zählen, Wölfe im Schafspelz nicht!','Danach wird es immer mal wieder Nacht. Es gilt die Nachtregel: Sonne und Mond tauschen.','Weiß hängt am Mond.','Blau sitzt direkt neben Weiß.','Rot hängt nicht ganz außen.','Gelb nimmt, was übrig bleibt.','Weckzeit: Stunde = echte Schafe. Minuten = 45.']},
+  {id:'l15',world:3,name:'Mitternacht',sticks:5,wires:['rot','blau','gelb','gruen','weiss'],ports:['sonne','mond','stern','herz','blume'],
+   solution:{rot:'sonne',weiss:'mond',gelb:'stern',gruen:'herz',blau:'blume'},time:[11,55],timeLimit:170,cycle:{day:[20,30],night:[15,22]},nightSwap:true,darkAtNight:true,wolf:{every:[12,18],walk:8.5},
+   clues:['Pfoten-Hinweise sind gelogen: Das Gegenteil stimmt. Es wird immer mal wieder Nacht und stockdunkel, dann gilt die Nachtregel.',{t:'Weiß hängt nicht am Mond.',wolf:true},'Rot hängt ganz außen.',{t:'Grün sitzt direkt neben Weiß.',wolf:true},'Rot hängt an der Sonne.','Gelb hängt am Stern.','Blau hängt weiter rechts als Grün.','Weckzeit: fünf vor zwölf.']},
+  {id:'l16',world:4,name:'Kein Saft',sticks:4,wires:['rot','blau','gelb'],ports:['sonne','mond','stern'],
+   solution:{rot:'sonne',gelb:'mond',blau:'stern'},time:[12,25],timeLimit:150,wolf:{every:[14,20],walk:9},power:{bats:1,need:12,cables:['rot','schwarz']},
+   clues:['Die Bombe hat keinen Saft. Verbinde Batterie und Bombe mit den Starthilfekabeln: Plus an Plus, Minus an Minus.','Gelb hängt am Mond.','Rot hängt nicht am Stern.','Blau nimmt, was übrig bleibt.','Weckzeit: Stunde = Mähgawatt der Batterie. Minuten = alle Kabel mal fünf.']},
+  {id:'l17',world:4,name:'Kurzschur',sticks:4,wires:['rot','blau','gelb','gruen'],ports:['sonne','mond','stern','herz'],
+   solution:{gruen:'sonne',rot:'mond',blau:'stern',gelb:'herz'},time:[2,30],timeLimit:150,wolf:{every:[13,19],walk:9},power:{bats:1,need:12,dirty:true,cables:['schwarz','schwarz']},
+   clues:['Die Batterie ist so verdreckt, dass man Plus und Minus nicht erkennt. Falsch gepolt gibt es eine Kurzschur!','Der Minuspol der Batterie zeigt zur Bombe.','Grün hängt ganz außen.','Rot sitzt direkt neben Grün.','Blau hängt am Stern.','Gelb hängt nicht an der Sonne.','Weckzeit: halb drei.']},
+  {id:'l18',world:4,name:'Schafskälte',sticks:3,wires:['rot','blau','weiss'],ports:['sonne','mond','stern'],
+   solution:{rot:'sonne',blau:'mond',weiss:'stern'},time:[5,45],timeLimit:100,frost:true,wolf:{every:[12,18],walk:8.5},power:{bats:1,need:12,cables:['rot','schwarz']},
+   clues:['Schafskälte! Alles ist vereist, und die kalte Batterie lässt die Lunte schneller brennen. Tipp auf die Schilder, um das Eis wegzukratzen.','Starthilfe wie immer: Plus an Plus, Minus an Minus.','Weiß hängt am Stern.','Blau hängt nicht an der Sonne.','Weckzeit: Viertel vor sechs.']},
+  {id:'l19',world:4,name:'Doppelbock',sticks:4,wires:['blau','gelb','gruen'],ports:['sonne','mond','stern'],
+   solution:{blau:'sonne',gelb:'mond',gruen:'stern'},time:[6,10],timeLimit:170,wolf:{every:[13,19],walk:9},power:{bats:2,need:24,cables:['rot','schwarz','schwarz']},
+   clues:['Die Bombe braucht 24 Mähgawatt, eine Batterie hat nur 12. Schalte beide hintereinander: Minus der einen an Plus der anderen.','Dann das freie Plus an Plus der Bombe und das freie Minus an Minus der Bombe.','Grün hängt ganz rechts.','Blau hängt nicht neben Grün.','Weckzeit: Stunde = alle Pole an Batterien und Bombe zusammen. Minuten = 10.']},
+  {id:'l20',world:4,name:'Hochspannung',sticks:5,wires:['rot','blau','gelb','gruen','lila'],ports:['sonne','mond','stern','herz','blume'],
+   solution:{lila:'blume',gelb:'herz',rot:'mond',blau:'stern',gruen:'sonne'},time:[12,20],timeLimit:170,power:{bats:1,need:12,dirty:true,cables:['rot','schwarz']},wolf:{every:[12,17],walk:8},
+   clues:['Pfoten-Hinweise sind gelogen: Das Gegenteil stimmt. Die Batterie ist wieder verdreckt.',{t:'Der Pluspol der Batterie zeigt zur Bombe.',wolf:true},'Lila hängt an der Blume.',{t:'Rot hängt ganz außen.',wolf:true},'Gelb sitzt direkt neben Lila.',{t:'Blau hängt am Mond.',wolf:true},'Grün hängt nicht am Stern.','Blau hängt weiter rechts als Rot.','Weckzeit: Stunde = Pfoten-Hinweise mal 4. Minuten = 20.']},
+  {id:'l21',world:5,name:'Gatter auf',sticks:4,wires:['rot','blau','gelb','gruen'],ports:['sonne','mond','stern','herz'],
+   solution:{blau:'herz',gelb:'stern',rot:'sonne',gruen:'mond'},time:[4,20],timeLimit:150,gate:{every:[14,22],grace:7},wolf:{every:[16,22],walk:9},
+   clues:['Das Gatter zur Koppel geht immer wieder auf. Schließ es schnell (antippen oder „Gatter zu!“), sonst holt sich der Wolf ein Schaf aus deiner Herde. Für immer!','Blau hängt am Herz.','Gelb sitzt direkt neben Blau.','Rot hängt nicht am Mond.','Grün nimmt, was übrig bleibt.','Weckzeit: zwanzig nach vier.']},
+  {id:'l22',world:5,name:'Ausreißer',sticks:5,wires:['rot','blau','gelb','gruen','lila'],ports:['sonne','mond','stern','herz','blume'],
+   solution:{lila:'blume',gruen:'herz',rot:'mond',blau:'sonne',gelb:'stern'},time:[8,30],timeLimit:160,gate:{every:[14,20],grace:7,runaway:true},wolf:{every:[16,22],walk:9},
+   clues:['Durch das offene Gatter büxen Schafe aus und stellen sich auf deine Kabel. Tipp sie an, dann trotten sie zurück.','Lila hängt ganz außen.','Grün hängt direkt neben Lila.','Rot hängt am Mond.','Blau hängt weiter links als Gelb.','Gelb hängt nicht am Herz.','Weckzeit: halb neun.']},
+  {id:'l23',world:5,name:'Nachtwache',sticks:4,wires:['rot','blau','gelb','weiss'],ports:['sonne','mond','stern','herz'],
+   solution:{weiss:'sonne',gelb:'herz',rot:'stern',blau:'mond'},time:[10,0],timeLimit:150,night:true,dark:true,gate:{every:[14,20],grace:8,runaway:true},wolf:{every:[16,22],walk:9},
+   clues:['Nachts an der Koppel: stockdunkel, das Gatter geht auf, und der Wolf ist unterwegs.','Weiß hängt an der Sonne.','Rot hängt nicht neben Weiß.','Gelb hängt am Herz.','Blau nimmt, was übrig bleibt.','Weckzeit: zwei Stunden vor Mitternacht.']},
+  {id:'l24',world:5,name:'Wolfsstunde',sticks:4,wires:['rot','blau','gelb'],ports:['sonne','mond','stern'],
+   solution:{gelb:'mond',blau:'sonne',rot:'stern'},time:[4,40],timeLimit:170,power:{bats:1,need:12,cables:['rot','schwarz']},gate:{every:[13,19],grace:6,runaway:true},wolf:{every:[13,18],walk:8},
+   clues:['Gatter, Wolf und Batterie: Erst Strom anschließen, dabei die Koppel im Auge behalten.','Gelb hängt nicht ganz außen.','Blau hängt links von Rot.','Weckzeit: Stunde = alle Pole an Batterie und Bombe. Minuten = 40.']},
+  {id:'l25',world:5,name:'Herdenschutz',sticks:6,wires:['rot','blau','gelb','gruen','weiss'],ports:['sonne','mond','stern','herz','blume'],
+   solution:{rot:'sonne',gruen:'mond',gelb:'stern',blau:'herz',weiss:'blume'},time:[12,15],timeLimit:190,reverse:true,cycle:{day:[22,30],night:[15,20]},nightSwap:true,darkAtNight:true,gate:{every:[13,19],grace:6,runaway:true},wolf:{every:[13,18],walk:8},
+   clues:['Das Finale: Pfoten-Hinweise lügen, nachts gilt die Nachtregel (Sonne ⇄ Mond), das Gatter geht auf, und das Schaf läuft rückwärts.',{t:'Rot hängt nicht an der Sonne.',wolf:true},'Weiß hängt ganz außen.',{t:'Gelb sitzt direkt neben Rot.',wolf:true},'Grün hängt nicht am Herz.','Blau hängt weiter rechts als Gelb.','Weckzeit: Viertel nach zwölf.']},
 ];
+const WORLDS=['Weide','Wolf','Nachtweide','Mähgawatt','Offene Koppel'];
+const SUN_I='<svg class="ph-i" viewBox="0 0 20 20" aria-label="Tag"><circle cx="10" cy="10" r="4" fill="#ffb800" stroke="#1d1a2b" stroke-width="1.5"/><path d="M10 1.5v2.5M10 16v2.5M1.5 10H4M16 10h2.5M4 4l1.8 1.8M14.2 14.2L16 16M4 16l1.8-1.8M14.2 5.8L16 4" stroke="#1d1a2b" stroke-width="1.8" stroke-linecap="round"/></svg>';
+const MOON_I='<svg class="ph-i" viewBox="0 0 20 20" aria-label="Nacht"><path d="M13 2.5a7.5 7.5 0 1 0 4.5 12.5A6.2 6.2 0 0 1 13 2.5z" fill="#ffe680" stroke="#1d1a2b" stroke-width="1.5" stroke-linejoin="round"/></svg>';
 const WIRE={rot:{label:'Rot',hex:0xe63b2e,css:'#e63b2e'},blau:{label:'Blau',hex:0x2d6cf0,css:'#2d6cf0'},gelb:{label:'Gelb',hex:0xffd23a,css:'#ffd23a'},
   gruen:{label:'Grün',hex:0x17a34a,css:'#17a34a'},schwarz:{label:'Schwarz',hex:0x2b2b33,css:'#2b2b33'},lila:{label:'Lila',hex:0x9a4dff,css:'#9a4dff'},
   weiss:{label:'Weiß',hex:0xf4f4f6,css:'#f4f4f6'},orange:{label:'Orange',hex:0xff8a1f,css:'#ff8a1f'}};
@@ -353,6 +442,9 @@ const store={
   set(v){try{localStorage.setItem('schaf-stellen-v1',JSON.stringify(v))}catch(e){}}
 };
 const progress=store.get(); progress.stars=progress.stars||{};
+if(progress.v!==2){Object.keys(progress.stars).forEach(k=>{if(progress.stars[k]>0)progress.stars[k]=Math.max(2,progress.stars[k]);});progress.v=2;}
+const WORLD_NEED=10;
+if(!progress.herd){progress.herd={};Object.keys(progress.stars).forEach(k=>{if(progress.stars[k]>0)progress.herd[k]=true;});}
 if(typeof progress.sound!=='boolean') progress.sound=true;
 
 /* ------------------------------------------------------------------ Sheep SVG */
@@ -433,6 +525,12 @@ const SFX={
     this.hiss(t,dur,0.12*v,{type:'lowpass',f:500,q:1,attack:0.05});},
   howl(){if(!this.ok())return;this.renderBleat(this.ctx,this.master,this.now()+0.01,1,1,0.9,this.HOWL);},
   sizzle(){if(!this.ok())return;const t=this.now();this.hiss(t,0.18,0.035,{type:'highpass',f:5500,q:0.7,attack:0.02});},
+  creak(){if(!this.ok())return;const t=this.now();this.osc('sawtooth',140,t,0.55,0.12,{f2:95,attack:0.03});this.hiss(t,0.5,0.12,{f:900,f2:600,q:6,attack:0.05});},
+  zap(){if(!this.ok())return;const t=this.now();for(let i=0;i<6;i++)this.hiss(t+i*0.045,0.04,0.5,{type:'highpass',f:2500,q:0.7});this.osc('square',90,t,0.4,0.25,{f2:40});this.osc('sawtooth',1800,t,0.25,0.08,{f2:300});},
+  clamp(){if(!this.ok())return;const t=this.now();this.osc('square',2400,t,0.03,0.08);this.osc('square',3100,t+0.05,0.03,0.07);this.hiss(t,0.04,0.3,{f:5000,q:3});},
+  scrape(){if(!this.ok())return;const t=this.now();this.hiss(t,0.16,0.3,{type:'bandpass',f:6000,f2:2500,q:2});},
+  hop(w){if(!this.ok())return;const t=this.now();this.osc('sine',w?220:330,t,0.14,0.07,{f2:w?420:640});},
+  cricket(){if(!this.ok())return;const t=this.now();for(let i=0;i<3;i++)this.osc('square',4300+Math.random()*200,t+i*0.06,0.035,0.012);},
   warn(){if(!this.ok())return;const t=this.now();this.osc('square',1500,t,0.07,0.08);},
   HOWL:{f0:430,rate:5,depth:0.02,trem:0.06,sub:0.05,breath:0.05,F:[400,850,2500,3400],dur:2.1,howl:true},
   // Schaf-Stimme: Formant-Synthese mit Stimmlippen-Pulsen, Meckern (Vibrato + Tremolo), Unterton-Rauheit, M-Anlaut und H-Ausklang
@@ -579,31 +677,81 @@ function drawSymbol(x,name,cx,cy,s){
   else if(name==='glocke'){x.beginPath();x.moveTo(-s*0.32,s*0.2);x.quadraticCurveTo(-s*0.26,-s*0.36,0,-s*0.36);x.quadraticCurveTo(s*0.26,-s*0.36,s*0.32,s*0.2);x.closePath();x.fill();x.fillRect(-s*0.4,s*0.16,s*0.8,s*0.08);x.beginPath();x.arc(0,s*0.33,s*0.08,0,7);x.fill();x.beginPath();x.arc(0,-s*0.4,s*0.06,0,7);x.fill();}
   x.restore();
 }
+function batteryTex(dirty){
+  const key='bat_'+(dirty?1:0);if(TEX[key])return TEX[key];
+  const c=cv(512,256),x=c.getContext('2d');
+  x.fillStyle='#2f3340';x.fillRect(0,0,512,256);
+  x.fillStyle='#ffcf1f';x.fillRect(0,92,512,96);x.fillStyle='#1d1a2b';x.fillRect(0,92,512,6);x.fillRect(0,182,512,6);
+  x.font='64px Bangers, Impact, sans-serif';x.textAlign='center';x.textBaseline='middle';x.fillStyle='#1d1a2b';x.fillText('12 MÄHGAWATT',256,142);
+  x.font='86px Bangers, Impact, sans-serif';
+  if(!dirty){x.fillStyle='#e63b2e';x.fillText('+',110,48);x.fillStyle='#ffffff';x.fillText('–',402,44);}
+  else{x.fillStyle='#6b4f2f';[[110,48,52],[402,46,50],[250,40,30],[160,220,40],[420,214,34]].forEach(([cx,cy,r])=>{x.beginPath();for(let i=0;i<14;i++){const a=i/14*Math.PI*2,rr=r*(0.75+Math.random()*0.4);x.lineTo(cx+Math.cos(a)*rr,cy+Math.sin(a)*rr);}x.closePath();x.fill();});}
+  return TEX[key]=tex(c);
+}
+function frostTex(){
+  if(TEX.frost)return TEX.frost;const c=cv(256,128),x=c.getContext('2d');
+  x.fillStyle='rgba(225,242,255,0.96)';x.fillRect(0,0,256,128);
+  x.strokeStyle='rgba(150,190,230,0.9)';x.lineWidth=3;
+  for(let i=0;i<9;i++){const cx=Math.random()*256,cy=Math.random()*128,r=10+Math.random()*18;for(let k=0;k<6;k++){const a=k/6*Math.PI*2;x.beginPath();x.moveTo(cx,cy);x.lineTo(cx+Math.cos(a)*r,cy+Math.sin(a)*r);x.stroke();}}
+  x.fillStyle='rgba(255,255,255,0.7)';x.font='600 22px Fredoka, sans-serif';x.textAlign='center';x.fillText('vereist',128,118);
+  return TEX.frost=tex(c);
+}
 function plateTex(name,label,color){
   const key='plate_'+name;if(TEX[key])return TEX[key];
   const c=cv(256,128),x=c.getContext('2d');
   x.fillStyle='#ffffff';x.fillRect(0,0,256,128);x.strokeStyle='#1d1a2b';x.lineWidth=8;x.strokeRect(4,4,248,120);
-  if(name!=='lamp')drawSymbol(x,name,62,64,96);
-  x.fillStyle=color||'#1d1a2b';x.textAlign=name==='lamp'?'center':'left';x.textBaseline='middle';
-  x.font=name==='lamp'?'54px Bangers, Impact, sans-serif':'600 34px Fredoka, sans-serif';
-  x.fillText(label,name==='lamp'?128:116,name==='lamp'?68:66);
+  const big=name==='lamp'||name.startsWith('txt');
+  if(!big)drawSymbol(x,name,62,64,96);
+  x.fillStyle=color||'#1d1a2b';x.textAlign=big?'center':'left';x.textBaseline='middle';
+  x.font=big?(name.startsWith('txt')?'96px Bangers, Impact, sans-serif':'54px Bangers, Impact, sans-serif'):'600 34px Fredoka, sans-serif';
+  x.fillText(label,big?128:116,big?(name.startsWith('txt')?70:68):66);
   return TEX[key]=tex(c);
 }
 
 /* ------------------------------------------------------------------ Umgebung: Schafweide */
-scene.background=TEX.sky;
+const SKY={day:['#5fb9ff','#bfe6ff','#e8f7ff'],night:['#0a0f30','#1c275a','#363c70']};
+const skyCanvas=cv(4,256),skyTex=new THREE.CanvasTexture(skyCanvas);scene.background=skyTex;
 scene.fog=new THREE.Fog(0xd8f1ff,32,90);
 const hemi=new THREE.HemisphereLight(0xe6f6ff,0x7fbf5a,0.62);scene.add(hemi);
 const sun=new THREE.DirectionalLight(0xffffff,0.78);sun.position.set(5,10,7);sun.castShadow=true;
 sun.shadow.mapSize.set(1024,1024);Object.assign(sun.shadow.camera,{left:-7,right:7,top:7,bottom:-7,near:1,far:30});sun.shadow.bias=-0.0008;scene.add(sun);
+let phase='day',dayK=1,darkK=0,dayDrawn=-1;
+const starsPts=(()=>{const n=360,a=new Float32Array(n*3);for(let i=0;i<n;i++){const th=Math.random()*Math.PI*2,ph=Math.random()*1.2,r=80;a[i*3]=Math.cos(th)*Math.cos(ph)*r;a[i*3+1]=Math.sin(ph)*r+4;a[i*3+2]=Math.sin(th)*Math.cos(ph)*r-20;}
+  const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.BufferAttribute(a,3));
+  const p=new THREE.Points(g,new THREE.PointsMaterial({color:0xffffff,size:2.2,sizeAttenuation:false,transparent:true,opacity:0,fog:false,depthWrite:false}));p.visible=false;scene.add(p);return p;})();
+const moon=new THREE.Mesh(new THREE.SphereGeometry(3.4,24,16),new THREE.MeshBasicMaterial({color:0xfff1bf,transparent:true,opacity:0,fog:false}));moon.position.set(-26,24,-70);moon.visible=false;scene.add(moon);
+const lantern=new THREE.PointLight(0xffc27a,0,16,1.4);lantern.position.set(1.6,2.6,3.2);scene.add(lantern);
+const torch=new THREE.SpotLight(0xfff2cc,0,40,0.2,0.55,1);const torchTarget=new THREE.Object3D();scene.add(torch,torchTarget);torch.target=torchTarget;
+const jumpLight=new THREE.PointLight(0xdfe8ff,0,9,1.2);jumpLight.position.set(3.6,1.8,-5.4);scene.add(jumpLight);
+const torchAim=new THREE.Vector3(0,-0.9,1.0);torchTarget.position.copy(torchAim);
+const _cA=new THREE.Color(),_cB=new THREE.Color();
+function mixC(a,b,k){return _cA.set(a).clone().lerp(_cB.set(b),k);}
+function applyDaylight(){
+  if(Math.abs(dayK-dayDrawn)>0.004){dayDrawn=dayK;const x=skyCanvas.getContext('2d'),g=x.createLinearGradient(0,0,0,256);
+    [0,0.62,1].forEach((pp,i)=>g.addColorStop(pp,'#'+mixC(SKY.night[i],SKY.day[i],dayK).getHexString()));x.fillStyle=g;x.fillRect(0,0,4,256);skyTex.needsUpdate=true;}
+  scene.fog.color.copy(mixC(0x222850,0xd8f1ff,dayK));
+  hemi.intensity=(0.22+0.4*dayK)*(1-0.78*darkK);sun.intensity=(0.12+0.66*dayK)*(1-0.9*darkK);
+  hemi.color.copy(mixC(0x8090ff,0xe6f6ff,dayK));sun.color.copy(mixC(0xa6b4ff,0xffffff,dayK));
+  const nk=1-dayK;starsPts.material.opacity=nk;moon.material.opacity=nk;starsPts.visible=moon.visible=nk>0.01;
+  lantern.intensity=nk*1.1*(1-darkK);torch.intensity=darkK*2.2;
+}
 
 const ground=new THREE.Mesh(new THREE.CircleGeometry(90,64).rotateX(-Math.PI/2),toon(0x86d35f));ground.position.y=GROUND;ground.receiveShadow=true;scene.add(ground);
 [[-22,-38,16,0x5fb648],[10,-42,20,0x6cc04f],[34,-34,14,0x55a842],[-42,-30,12,0x74c958],[22,-30,9,0x8ad766]].forEach(([x,z,r,c])=>{
   const h=mk(sphereG,toon(c),{scale:[r,r*0.45,r],pos:[x,GROUND,z],outline:0.35,cast:false});scene.add(h);});
 // Zaun
-(()=>{const wood=toon(0xd39b5a);const post=new THREE.BoxGeometry(0.18,1.1,0.18),rail=new THREE.BoxGeometry(22,0.12,0.08);
+const GATE_X=2;let gateGroup,gateHit;
+(()=>{const wood=toon(0xd39b5a);const post=new THREE.BoxGeometry(0.18,1.1,0.18),rail=new THREE.BoxGeometry(2,0.12,0.08);
   for(let x=-10;x<=10;x+=2){scene.add(mk(post,wood,{pos:[x,GROUND+0.55,-6],outline:0.025}));}
-  scene.add(mk(rail,wood,{pos:[0,GROUND+0.55,-5.9],outline:0.02}));scene.add(mk(rail,wood,{pos:[0,GROUND+0.9,-5.9],outline:0.02}));})();
+  scene.add(mk(new THREE.BoxGeometry(0.24,1.35,0.24),toon(0xb07a42),{pos:[GATE_X,GROUND+0.68,-6],outline:0.025}),mk(new THREE.BoxGeometry(0.24,1.35,0.24),toon(0xb07a42),{pos:[GATE_X+2,GROUND+0.68,-6],outline:0.025}));
+  for(let x=-10;x<10;x+=2){if(x===GATE_X)continue;[0.55,0.9].forEach(y=>scene.add(mk(rail,wood,{pos:[x+1,GROUND+y,-5.9],outline:0.02})));}
+  gateGroup=new THREE.Group();gateGroup.position.set(GATE_X+0.12,GROUND,-5.9);scene.add(gateGroup);
+  const gw=toon(0xe0a868),board=new THREE.BoxGeometry(1.76,0.13,0.07),slat=new THREE.BoxGeometry(0.1,0.8,0.07);
+  [0.3,0.62,0.95].forEach(y=>gateGroup.add(mk(board,gw,{pos:[0.88,y,0],outline:0.018})));
+  [0.06,1.7].forEach(x=>gateGroup.add(mk(slat,gw,{pos:[x,0.62,0],outline:0.015})));
+  gateGroup.add(mk(new THREE.BoxGeometry(1.9,0.09,0.06),gw,{pos:[0.88,0.62,0.02],rot:[0,0,0.37],outline:0.015}));
+  gateHit=new THREE.Mesh(new THREE.BoxGeometry(2.6,2.2,2.6),hitMat);gateHit.position.set(GATE_X+1,GROUND+0.9,-5.6);gateHit.userData={type:'gate'};scene.add(gateHit);
+})();
 // Grasbüschel & Gänseblümchen
 (()=>{
   const g=new THREE.ConeGeometry(0.07,0.34,4).translate(0,0.17,0),m=toon(0x4f9f39),N=320,im=new THREE.InstancedMesh(g,m,N);
@@ -628,7 +776,7 @@ for(let i=0;i<6;i++){
 }
 
 /* ------------------------------------------------------------------ Bombe */
-let bombBox=null,bomb=null,clock=null,hands={},bells=[],hammer=null,sticks=[],ports={},wires=[],lampMesh=null,fuse=null;
+let frostList=[],jumpCables=[],batteries=[],bombBox=null,bomb=null,clock=null,hands={},bells=[],hammer=null,sticks=[],ports={},wires=[],lampMesh=null,fuse=null;
 const pickables=[];
 const IDQ=new THREE.Quaternion();
 
@@ -683,21 +831,22 @@ function buildBomb(lv){
   hammer.add(mk(sphereG,toon(0xffcf1f),{scale:0.075,pos:[0,0.42,0],outline:0.015}));
 
   // Anschlussleiste
-  const nP=lv.ports.length,psp=0.62,W=nP*psp+0.62+0.2;
+  const nP=lv.ports.length,psp=0.62,pw=lv.power?0.9:0,W=nP*psp+0.62+0.2+pw;frostList=[];jumpCables=[];
   bomb.add(mk(new THREE.BoxGeometry(W,0.6,0.5),toon(0x3b3b49),{pos:[0,-1.0,0.55],outline:0.028}));
-  const lampX=-W/2+0.1+0.31;
+  const lampX=-W/2+0.1+pw+0.31;
   const lp=new THREE.Mesh(new THREE.PlaneGeometry(0.52,0.26),new THREE.MeshBasicMaterial({map:plateTex('lamp','SCHARF','#e63b2e')}));lp.position.set(lampX,-0.84,0.803);bomb.add(lp);
   lampMesh=mk(sphereG,new THREE.MeshBasicMaterial({color:0x2ecf6a}),{scale:0.1,pos:[lampX,-1.13,0.82],outline:0.02,cast:false});bomb.add(lampMesh);
   const ringG=new THREE.TorusGeometry(0.1,0.03,10,28),holeG=new THREE.CircleGeometry(0.075,20),glowG=new THREE.TorusGeometry(0.16,0.035,8,32);
   lv.ports.forEach((name,i)=>{
-    const x=-W/2+0.1+0.62+psp*(i+0.5);
-    const pl=new THREE.Mesh(new THREE.PlaneGeometry(0.52,0.26),new THREE.MeshBasicMaterial({map:plateTex(name,PORT_LABEL[name].toUpperCase())}));pl.position.set(x,-0.84,0.803);bomb.add(pl);
+    const x=-W/2+0.1+pw+0.62+psp*(i+0.5);
+    const pl=new THREE.Mesh(new THREE.PlaneGeometry(0.52,0.26),new THREE.MeshBasicMaterial({map:plateTex(name,PORT_LABEL[name].toUpperCase())}));pl.position.set(x,-0.84,0.803);bomb.add(pl);if(lv.frost)addFrost(pl,0.56,0.3);
     bomb.add(mk(ringG,toon(0xd8a93a),{pos:[x,-1.13,0.8],outline:0.012,cast:false}));
     const hole=new THREE.Mesh(holeG,new THREE.MeshBasicMaterial({color:0x111018}));hole.position.set(x,-1.13,0.802);bomb.add(hole);
     const glow=new THREE.Mesh(glowG,new THREE.MeshBasicMaterial({color:0xffe14d,transparent:true,opacity:0,depthWrite:false}));glow.position.set(x,-1.13,0.81);bomb.add(glow);
     const hit=new THREE.Mesh(new THREE.BoxGeometry(0.6,0.7,0.36),hitMat);hit.position.set(x,-1.0,0.86);hit.userData={type:'port',port:name};bomb.add(hit);pickables.push(hit);
-    ports[name]={name,x,socket:new THREE.Vector3(x,-1.13,0.8),glow,wire:null};
+    ports[name]={name,x,socket:new THREE.Vector3(x,-1.13,0.8),glow,wire:null,quat:IDQ};
   });
+  if(lv.power)buildPower(lv,W);
 
   // Kabel + Stecker
   const nW=lv.wires.length;
@@ -718,9 +867,100 @@ function buildBomb(lv){
     w.tubeMat=toon(color);
     wires.push(w);updateCable(w);
   });
+  if(lv.power)buildJumpCables(lv,W);
   bomb.updateMatrixWorld(true);bombBox=new THREE.Box3().setFromObject(bomb);
 }
 
+const CLAMPQ=new THREE.Quaternion().setFromEuler(new THREE.Euler(-Math.PI/2,0,0));
+function addFrost(plate,w,h){
+  const m=new THREE.Mesh(new THREE.PlaneGeometry(w,h),new THREE.MeshBasicMaterial({map:frostTex(),transparent:true,opacity:0.97,depthWrite:false}));
+  m.position.copy(plate.position);m.position.z+=0.012;m.userData={type:'frost',hp:3};plate.parent.add(m);frostList.push(m);
+}
+function powerPort(name,pos,capCol,parent,hang){
+  const glow=new THREE.Mesh(new THREE.TorusGeometry(0.13,0.03,8,28).rotateX(Math.PI/2),new THREE.MeshBasicMaterial({color:0xffe14d,transparent:true,opacity:0,depthWrite:false}));
+  glow.position.copy(pos);glow.position.y-=0.05;parent.add(glow);
+  const hit=new THREE.Mesh(new THREE.BoxGeometry(0.4,0.42,0.42),hitMat);hit.position.copy(pos);hit.position.y-=0.08;hit.userData={type:'port',port:name};parent.add(hit);pickables.push(hit);
+  const sock=pos.clone();if(parent!==bomb){parent.updateMatrix();sock.applyMatrix4(parent.matrix);}
+  ports[name]={name,x:sock.x,socket:sock,glow,wire:null,type:'power',quat:CLAMPQ,hang:hang?hang(sock):null};
+}
+function buildPower(lv,W){
+  const cfg=lv.power,dirty=!!cfg.dirty,metal=toon(0xb8bcc8);
+  // Strom-Pfosten an der Bombe
+  [['post+',-W/2+0.35,0xe63b2e,'+'],['post-',-W/2+0.75,0x2b2b33,'–']].forEach(([nm,x,col,sym])=>{
+    bomb.add(mk(new THREE.CylinderGeometry(0.055,0.055,0.22,10),metal,{pos:[x,-0.59,0.6],outline:0.012}));
+    bomb.add(mk(sphereG,toon(col),{scale:0.075,pos:[x,-0.47,0.6],outline:0.012}));
+    const pl=new THREE.Mesh(new THREE.PlaneGeometry(0.34,0.22),new THREE.MeshBasicMaterial({map:plateTex('txt'+(sym==='+'?'p':'m'),sym,sym==='+'?'#e63b2e':'#1d1a2b')}));
+    pl.position.set(x,-0.84,0.803);bomb.add(pl);if(lv.frost)addFrost(pl,0.38,0.26);
+    powerPort(nm,new THREE.Vector3(x,-0.44,0.6),col,bomb,s=>[s.clone().add(new THREE.Vector3(0,0.3,0)),new THREE.Vector3(-W/2-0.08,-0.42,0.62),new THREE.Vector3(-W/2-0.08,GROUND+0.05,0.98)]);
+  });
+  // Batterien links neben der Bombe
+  batteries=[];
+  for(let b=1;b<=cfg.bats;b++){
+    const g=new THREE.Group();g.position.set(-W/2-0.75-(b-1)*1.35,GROUND,0.75);bomb.add(g);
+    g.add(mk(new THREE.BoxGeometry(1.15,0.85,0.75),toon(0x2f3340),{pos:[0,0.425,0],outline:0.03}));
+    g.add(mk(new THREE.BoxGeometry(1.2,0.08,0.8),toon(0x454a59),{pos:[0,0.87,0],outline:0.015}));
+    g.add(mk(new THREE.TorusGeometry(0.22,0.035,8,20,Math.PI),toon(0x1d1a2b),{pos:[0,0.91,-0.15],outline:0}));
+    const lab=new THREE.Mesh(new THREE.PlaneGeometry(1.08,0.54),new THREE.MeshBasicMaterial({map:batteryTex(dirty)}));lab.position.set(0,0.45,0.377);g.add(lab);
+    if(lv.frost)addFrost(lab,1.1,0.56);
+    [['b'+b+'+',-0.33,0xe63b2e],['b'+b+'-',0.33,0x2b2b33]].forEach(([nm,x,col])=>{
+      g.add(mk(new THREE.CylinderGeometry(0.07,0.07,0.18,12),metal,{pos:[x,0.99,0.12],outline:0.012}));
+      g.add(mk(sphereG,toon(dirty?0x6b5a48:col),{scale:0.08,pos:[x,1.09,0.12],outline:0.012}));
+      powerPort(nm,new THREE.Vector3(x,1.12,0.12),col,g,s=>{const sd=x<0?-1:1;return [s.clone().add(new THREE.Vector3(0,0.32,0)),new THREE.Vector3(g.position.x+sd*0.68,s.y+0.12,g.position.z+0.05),new THREE.Vector3(g.position.x+sd*0.68,GROUND+0.05,g.position.z+0.5)];});
+    });
+    batteries.push(g);
+  }
+}
+function makeClamp(color){
+  const plug=new THREE.Group(),mat=toon(color),metal=toon(0xcfd3dc);
+  plug.add(mk(new THREE.CylinderGeometry(0.075,0.075,0.28,14).rotateX(Math.PI/2),mat,{pos:[0,0,0.22],outline:0.02}));
+  [-1,1].forEach(s=>plug.add(mk(new THREE.BoxGeometry(0.14,0.03,0.2),metal,{pos:[0,s*0.035,0.0],rot:[s*0.18,0,0],outline:0.01})));
+  plug.userData.mat=mat;return plug;
+}
+function buildJumpCables(lv,W){
+  const cols=lv.power.cables,bx=-W/2-0.75;
+  cols.forEach((col,i)=>{
+    const cab={id:'J'+(i+1),color:WIRE[col].hex,ends:[],tube:null,tubeMat:toon(WIRE[col].hex)};
+    [0,1].forEach(e=>{
+      const k=i*2+e,restPos=new THREE.Vector3(-W/2-0.5+k*0.4,GROUND+0.075,2.65+(k%2)*0.08);
+      const w={name:cab.id+(e?'b':'a'),clamp:true,cable:cab,color:cab.color,port:null,moving:false,moveId:0,dirty:true,restPos,
+        restQuat:new THREE.Quaternion().setFromEuler(new THREE.Euler(0,Math.PI+(Math.random()-0.5)*0.3,0))};
+      const plug=makeClamp(cab.color);w.handleMat=plug.userData.mat;
+      const hit=new THREE.Mesh(new THREE.BoxGeometry(0.36,0.36,0.7),hitMat);hit.position.z=0.15;hit.userData={type:'plug',wire:w};plug.add(hit);pickables.push(hit);
+      plug.position.copy(restPos);plug.quaternion.copy(w.restQuat);bomb.add(plug);w.plug=plug;
+      cab.ends.push(w);wires.push(w);
+    });
+    jumpCables.push(cab);updateJump(cab);
+  });
+}
+function endExit(w){
+  const p=w.plug;p.updateMatrix();
+  return {exit:new THREE.Vector3(0,0,0.36).applyMatrix4(p.matrix),dir:new THREE.Vector3(0,0,1).applyQuaternion(p.quaternion)};
+}
+function updateJump(c){
+  const [a,b]=c.ends,gy=GROUND+0.05;
+  const endPts=w=>{const E=endExit(w),p=w.port&&!w.moving&&ports[w.port];if(p&&p.hang)return [E.exit,...p.hang];
+    const e1=E.exit.clone().addScaledVector(E.dir,0.2),r=[E.exit,e1];if(e1.y-gy>0.15)r.push(new THREE.Vector3(e1.x,gy,e1.z+0.3));return r;};
+  const pa=endPts(a),pb=endPts(b).reverse(),la=pa[pa.length-1],lb=pb[0];
+  const pts=[...pa,new THREE.Vector3((la.x+lb.x)/2,gy,Math.max(la.z,lb.z)+0.35),...pb];
+  const g=new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts,false,'centripetal'),64,0.05,8,false);
+  if(c.tube){c.tube.geometry.dispose();c.tube.geometry=g;c.tubeOutline.geometry=g;}
+  else{c.tube=new THREE.Mesh(g,c.tubeMat);c.tube.castShadow=true;c.tubeOutline=outline(c.tube,0.02,'normal');bomb.add(c.tube);}
+}
+function evalPower(lv){
+  const par={};const f=x=>{if(par[x]===undefined)par[x]=x;return par[x]===x?x:(par[x]=f(par[x]));};
+  Object.keys(ports).filter(k=>ports[k].type==='power').forEach(k=>f(k));
+  jumpCables.forEach(c=>{const [a,b]=c.ends;if(a.port&&b.port)par[f(a.port)]=f(b.port);});
+  const edges=[];
+  for(let i=1;i<=lv.power.bats;i++){const m=f('b'+i+'-'),p=f('b'+i+'+');if(m===p)return 'short';edges.push([m,p]);}
+  const V={};V[f('post-')]=0;let ch=true;
+  while(ch){ch=false;edges.forEach(([m,p])=>{if(V[m]!==undefined&&V[p]===undefined){V[p]=V[m]+12;ch=true;}else if(V[p]!==undefined&&V[m]===undefined){V[m]=V[p]-12;ch=true;}});}
+  for(const [m,p] of edges)if(V[m]!==undefined&&V[p]!==undefined&&V[p]-V[m]!==12)return 'short';
+  const vp=V[f('post+')];
+  if(vp===undefined||vp===0)return 'none';
+  if(vp<0)return 'short';
+  if(vp<lv.power.need)return 'weak';
+  return 'ok';
+}
 function setFuse(f){
   if(!fuse)return;f=clamp(f,0.04,1);if(Math.abs(f-fuse.frac)<0.006)return;fuse.frac=f;
   const pts=[];for(let i=0;i<=24;i++)pts.push(fuse.curve.getPoint(f*i/24));fuse.tip.copy(pts[24]);
@@ -744,6 +984,7 @@ function cablePoints(w){
   return pts;
 }
 function updateCable(w){
+  if(w.clamp){updateJump(w.cable);return;}
   const g=new THREE.TubeGeometry(new THREE.CatmullRomCurve3(cablePoints(w),false,'centripetal'),56,0.045,8,false);
   if(w.tube){w.tube.geometry.dispose();w.tube.geometry=g;w.tubeOutline.geometry=g;}
   else{w.tube=new THREE.Mesh(g,w.tubeMat);w.tube.castShadow=true;w.tubeOutline=outline(w.tube,0.02,'normal');bomb.add(w.tube);}
@@ -752,9 +993,9 @@ function updateCable(w){
 /* ------------------------------------------------------------------ Schaf */
 function makeSheep(o={}){
   const g=new THREE.Group(),ol=o.ghost?0:1;
-  const wool=o.ghost?toon(0xffffff,{transparent:true,opacity:0.5,depthWrite:false}):toon(o.wool||0xffffff),dark=toon(0x3b3340);
+  const wool=o.ghost?toon(0xffffff,{transparent:true,opacity:0.5,depthWrite:false}):toon(o.shorn?0xffc2cf:(o.wool||0xffffff)),dark=toon(0x3b3340),bs=o.shorn?0.72:1;
   [[0,0.95,0,0.62],[0.45,1.05,0.1,0.48],[-0.45,1.0,0.05,0.5],[0.1,1.35,0,0.5],[-0.25,1.3,-0.2,0.45],[0.3,0.9,-0.3,0.45],[-0.3,0.85,0.3,0.45],[0.25,1.0,0.4,0.42],[-0.1,1.1,-0.4,0.42],[0.45,1.3,-0.1,0.38]]
-    .forEach(([x,y,z,r])=>g.add(mk(sphereG,wool,{scale:r,pos:[x,y,z],outline:0.035*ol,cast:!o.ghost})));
+    .forEach(([x,y,z,r])=>g.add(mk(sphereG,wool,{scale:r*bs,pos:[x*bs,0.35+(y-0.35)*(o.shorn?0.85:1),z*bs],outline:0.035*ol,cast:!o.ghost})));
   [[0.32,0.28],[-0.32,0.28],[0.32,-0.28],[-0.32,-0.28]].forEach(([x,z])=>g.add(mk(new THREE.CylinderGeometry(0.08,0.07,0.6,10),dark,{pos:[x,0.3,z],outline:0.02})));
   const head=new THREE.Group();head.position.set(0,1.2,0.62);g.add(head);
   head.add(mk(sphereG,dark,{scale:[0.3,0.38,0.32],pos:[0,0,0.08],outline:0.03}));
@@ -764,10 +1005,11 @@ function makeSheep(o={}){
     head.add(mk(sphereG,dark,{scale:[0.2,0.07,0.11],pos:[s*0.32,0.12,0.05],rot:[0,0,s*0.5],outline:0.02}));
     if(o.wolfEars)head.add(mk(new THREE.ConeGeometry(0.08,0.24,4),toon(0x8a8fa0),{pos:[s*0.17,0.42,0],rot:[0,0,-s*0.25],outline:0.015}));
   });
-  [[0,0.34,0.05,0.14],[0.12,0.3,0.02,0.12],[-0.12,0.3,0.02,0.12]].forEach(([x,y,z,r])=>head.add(mk(sphereG,wool,{scale:r,pos:[x,y,z],outline:0.02*ol})));
+  (o.shorn?[[0,0.36,0.05,0.12]]:[[0,0.34,0.05,0.14],[0.12,0.3,0.02,0.12],[-0.12,0.3,0.02,0.12]]).forEach(([x,y,z,r])=>head.add(mk(sphereG,o.shorn?toon(0xffffff):wool,{scale:r,pos:[x,y,z],outline:0.02*ol})));
   const mouth=mk(sphereG,new THREE.MeshBasicMaterial({color:0xff8fa3}),{scale:[0.09,0.02,0.05],pos:[0,-0.24,0.33],outline:0});head.add(mouth);
   return {g,head,mouth};
 }
+const SHORN=makeSheep({shorn:true});SHORN.g.visible=false;scene.add(SHORN.g);let shornT0=0;
 const SH=makeSheep(),sheep=SH.g,sheepHead=SH.head,sheepMouth=SH.mouth;let sheepT0=0,sheepMode='win';
 sheep.position.set(0,GROUND,0.55);sheep.visible=false;scene.add(sheep);
 
@@ -802,15 +1044,123 @@ const COSTUME=makeWolf({costume:true});COSTUME.g.visible=false;scene.add(COSTUME
 const wolf={mode:'off',next:0,t:0,dur:1,from:new THREE.Vector3(),to:new THREE.Vector3(),side:1,warned:false};
 
 const herd=new THREE.Group();scene.add(herd);let herdList=[];
-const HERD_POS=[[-7,-8],[-4.6,-9.6],[-2.1,-8.3],[0.7,-9.9],[3.2,-8.4],[5.8,-9.7],[8.1,-8.4],[-9.2,-10.6],[2.1,-11.6],[-5.6,-11.9]];
+const HERD_POS=Array.from({length:25},(_,i)=>{const row=i%2,col=Math.floor(i/2);return [-9.4+col*1.6+(row?0.8:0),(row?-10.9:-8.2)+((i*0.37)%0.7)-0.35];});
 function buildHerd(){
   herdList.forEach(h=>{disposeTree(h.g);herd.remove(h.g);});herdList=[];
   LEVELS.forEach((lv,i)=>{
-    if(!((progress.stars[lv.id]||0)>0))return;
-    const s=makeSheep({wool:lv.id==='l4'?0x3b3640:0xffffff,ghost:lv.id==='l5',wolfEars:!!lv.wolf});
+    if(!progress.herd[lv.id])return;
+    const s=makeSheep({wool:lv.id==='l4'?0x3b3640:0xffffff,ghost:lv.id==='l5',shorn:lv.id==='l17',wolfEars:!!lv.wolf});
     const [x,z]=HERD_POS[i%HERD_POS.length];s.g.position.set(x,GROUND,z);s.g.scale.setScalar(0.62);
     const ry=((i*1.37)%1.2)-0.6;s.g.rotation.y=ry;herd.add(s.g);herdList.push({...s,i,ry});
   });
+}
+
+/* ------------------------------------------------------------------ Schäfchen zählen */
+const jumpers=[];let countN=0,countSeq=[],countT=0,countState='off',jumpX=3.6,jumpH=1.8;
+function ensureJumpers(n,dec){
+  while(jumpers.filter(j=>!j.wolf).length<n){const s=makeSheep();s.g.scale.setScalar(0.7);s.g.visible=false;scene.add(s.g);jumpers.push({g:s.g,head:s.head,wolf:false});}
+  while(jumpers.filter(j=>j.wolf).length<dec){const w=makeWolf({costume:true});w.g.scale.setScalar(0.8);w.g.visible=false;scene.add(w.g);jumpers.push({g:w.g,head:w.head,wolf:true});}
+}
+function setupCount(lv){
+  jumpers.forEach(j=>j.g.visible=false);countSeq=[];countN=0;countState='off';if(!lv.count)return;
+  countN=lv.count.min+Math.floor(Math.random()*(lv.count.max-lv.count.min+1));
+  const dec=lv.count.decoy?1+Math.floor(Math.random()*2):0;ensureJumpers(countN,dec);
+  countSeq=jumpers.filter(j=>!j.wolf).slice(0,countN);
+  jumpers.filter(j=>j.wolf).slice(0,dec).forEach(w=>countSeq.splice(1+Math.floor(Math.random()*(countSeq.length-1)),0,w));
+  countT=0;countState='wait';
+}
+const _jA=new THREE.Vector3(),_jB=new THREE.Vector3();
+function placeJumper(j,lt){
+  const X=jumpX;let a,b,k,h=0;
+  if(lt<0.7){a=_jA.set(X+4.5,GROUND,-3.4);b=_jB.set(X+0.7,GROUND,-4.7);k=lt/0.7;}
+  else if(lt<1.4){a=_jA.set(X+0.7,GROUND,-4.7);b=_jB.set(X-0.7,GROUND,-7.4);k=(lt-0.7)/0.7;h=Math.sin(Math.PI*k)*jumpH;}
+  else{a=_jA.set(X-0.7,GROUND,-7.4);b=_jB.set(X-4.5,GROUND,-9.2);k=(lt-1.4)/0.7;}
+  j.g.position.lerpVectors(a,b,k);j.g.position.y=GROUND+h+(h?0:Math.abs(Math.sin(lt*14))*0.1);
+  j.g.rotation.set(h?-0.25*Math.cos(Math.PI*k):0,Math.atan2(b.x-a.x,b.z-a.z),0);
+}
+function updateCount(dt){
+  if(countState==='off')return;countT+=dt;
+  if(countState==='wait'){if(busy){countT=0;return;}if(countT>1.6){countState='banner';countT=0;banner('Achtung, jetzt Schafe zählen!',0,'go pulse');SFX.beep(990);}return;}
+  if(countState==='banner'){if(countT>1.5){countState='jump';countT=0;}return;}
+  if(countState==='jump'){
+    const gap=1.15;
+    countSeq.forEach((j,i)=>{const lt=countT-i*gap;if(lt<0||lt>2.1){j.g.visible=false;return;}j.g.visible=true;placeJumper(j,lt);if(lt>=0.7&&lt-dt<0.7)SFX.hop(j.wolf);});
+    if(countT>(countSeq.length-1)*gap+2.3){countState='done';countT=0;countSeq.forEach(j=>j.g.visible=false);banner('Fertig gezählt! Die Lunte brennt weiter.',2200,'');SFX.beep(660);}
+    return;
+  }
+  if(countState==='done'&&countT>0.1)countState='off';
+}
+
+/* ------------------------------------------------------------------ Koppel: Gatter, Raub, Ausreißer */
+const RAIDER=makeWolf();RAIDER.g.visible=false;RAIDER.g.scale.setScalar(0.85);scene.add(RAIDER.g);
+const gate={state:'closed',t:0,next:0,ang:0,raid:null,strays:[]};
+function resetGate(){
+  const dirty=gate.strays.length||gate.raid;
+  gate.state='closed';gate.ang=0;if(gateGroup)gateGroup.rotation.y=0;RAIDER.g.visible=false;gate.raid=null;
+  gate.strays.forEach(st=>{if(st.wire)st.wire.blocked=null;});gate.strays=[];if(dirty)buildHerd();
+  const lv=LEVELS[cur];gate.next=lv&&lv.gate?lv.gate.every[0]:0;$('#gateBtn').hidden=true;
+}
+function openGate(){
+  const lv=LEVELS[cur];gate.state='open';gate.t=lv.gate.grace;SFX.creak();
+  banner('Das Gatter ist offen! Schnell zumachen!',0,'go pulse');$('#gateBtn').hidden=false;
+  if(lv.gate.runaway&&Math.random()<0.75)startStray();
+}
+function closeGate(){
+  if(gate.state!=='open')return;const lv=LEVELS[cur];
+  gate.state='closed';gate.next=lv.gate.every[0]+Math.random()*(lv.gate.every[1]-lv.gate.every[0]);
+  SFX.creak();hideBanner();$('#gateBtn').hidden=true;toast('Gatter zu. Die Herde ist sicher.','info',1600);
+}
+$('#gateBtn').addEventListener('click',()=>{SFX.init();closeGate();});
+function herdFree(){return herdList.filter(h=>!h.away&&!h.stray);}
+function startRaid(){
+  const pool=herdFree();gate.state='raid';hideBanner();$('#gateBtn').hidden=true;
+  const target=pool.length?pool[Math.floor(Math.random()*pool.length)]:null,side=Math.random()<0.5?-1:1;
+  const from=new THREE.Vector3(side*15,GROUND,-13),to=target?target.g.position.clone():new THREE.Vector3(GATE_X+1,GROUND,-8);
+  gate.raid={target,from,to,t:0,phase:'in',side};RAIDER.g.visible=true;RAIDER.g.position.copy(from);
+  SFX.howl();banner('Zu spät! Der Wolf ist in der Koppel!',2600,'night');
+  if(target)target.away=true;
+}
+function updateRaid(dt){
+  const r=gate.raid,g=RAIDER.g;if(!r)return;
+  if(r.phase==='in'){r.t+=dt/2.2;const k=Math.min(1,r.t);g.position.lerpVectors(r.from,r.to,k);g.rotation.y=Math.atan2(r.to.x-r.from.x,r.to.z-r.from.z);animRaider(16);
+    if(k>=1){r.phase='grab';r.t=0;if(r.target){SFX.bleat(1.6,0.6,0.8);}else SFX.growl(0.5);}}
+  else if(r.phase==='grab'){r.t+=dt;if(r.t>0.6){r.phase='out';r.t=0;r.from=g.position.clone();r.to=new THREE.Vector3(-r.side*16,GROUND,-14);}}
+  else if(r.phase==='out'){r.t+=dt/2.4;const k=Math.min(1,r.t);g.position.lerpVectors(r.from,r.to,k);g.rotation.y=Math.atan2(r.to.x-r.from.x,r.to.z-r.from.z);animRaider(18);
+    if(r.target){r.target.g.position.copy(g.position).add(new THREE.Vector3(0,0.55,0));r.target.g.rotation.z=0.5;}
+    if(k>=1){
+      g.visible=false;const lv=r.target?LEVELS[r.target.i]:null;
+      if(lv){progress.herd[lv.id]=false;store.set(progress);buildHerd();toast(`<b>Der Wolf hat das Schaf aus Level ${r.target.i+1} geholt!</b> Spiel „${lv.name}“ nochmal, um es zurückzuholen.`,'warn',5200);}
+      else toast('Der Wolf hat nichts gefunden und zieht ab.','info',2400);
+      gate.raid=null;gate.state='closed';const cfg=LEVELS[cur].gate;gate.next=cfg.every[0]+Math.random()*(cfg.every[1]-cfg.every[0]);
+    }
+  }
+}
+function animRaider(speed){const p=T*speed;RAIDER.legs.forEach((L,i)=>{L.rotation.x=Math.sin(p+((i===0||i===3)?0:Math.PI))*0.7;});RAIDER.body.position.y=Math.abs(Math.sin(p))*0.06;}
+function startStray(){
+  const pool=herdFree(),free=wires.filter(w=>!w.port&&!w.moving&&!w.blocked&&w!==dragW);if(!pool.length||!free.length)return;
+  const h=pool[Math.floor(Math.random()*pool.length)],w=free[Math.floor(Math.random()*free.length)];
+  h.stray=true;w.blocked=h;const home=h.g.position.clone();
+  const tgt=bomb.localToWorld(w.restPos.clone()).add(new THREE.Vector3(0,0,-0.05));tgt.y=GROUND;
+  const path=[home,new THREE.Vector3(GATE_X+1,GROUND,-6.6),new THREE.Vector3(GATE_X+1,GROUND,-5.2),tgt];
+  const st={h,wire:w,home,path,t:0,mode:'out'};gate.strays.push(st);
+  if(!h.hit){h.hit=new THREE.Mesh(new THREE.BoxGeometry(1.6,1.8,1.6),hitMat);h.hit.position.y=0.9;h.hit.userData={type:'stray',h};h.g.add(h.hit);}
+  h.hit.userData.st=st;h.g.scale.setScalar(0.7);SFX.bleat(1.3,0.5,0.4);
+}
+function sendStrayHome(st){if(st.mode==='home')return;st.mode='home';st.t=0;st.path=[st.h.g.position.clone(),new THREE.Vector3(GATE_X+1,GROUND,-5.2),new THREE.Vector3(GATE_X+1,GROUND,-6.6),st.home];st.wire.blocked=null;SFX.bleat(1.1,0.4,0.4);}
+function pathAt(path,k){const n=path.length-1,f=Math.min(n-0.0001,k*n),i=Math.floor(f);return new THREE.Vector3().lerpVectors(path[i],path[i+1],f-i);}
+function updateStrays(dt){
+  for(let i=gate.strays.length-1;i>=0;i--){
+    const st=gate.strays[i],g=st.h.g;
+    if(st.mode==='out'||st.mode==='home'){st.t+=dt/(st.mode==='out'?4:3);const k=Math.min(1,st.t),p=pathAt(st.path,k),q=pathAt(st.path,Math.min(1,k+0.02));
+      g.position.copy(p);g.position.y=GROUND+Math.abs(Math.sin(T*10))*0.08;if(q.distanceTo(p)>0.001)g.rotation.y=Math.atan2(q.x-p.x,q.z-p.z);
+      if(k>=1){if(st.mode==='out'){st.mode='stand';toast('Ein Schaf steht auf einem Kabel! Tipp es an.','warn',2600);}else{st.h.stray=false;g.scale.setScalar(0.62);g.rotation.y=st.h.ry;gate.strays.splice(i,1);}}}
+    else if(st.mode==='stand'){st.h.head.rotation.x=0.4+0.25*Math.sin(T*2.2);}
+  }
+}
+function updateGate(dt){
+  const lv=LEVELS[cur];
+  if(gate.state==='closed'){gate.next-=dt;if(gate.next<=0)openGate();}
+  else if(gate.state==='open'){gate.t-=dt;if(gate.t<=0)startRaid();}
 }
 
 /* ------------------------------------------------------------------ Partikel & Tweens */
@@ -867,20 +1217,25 @@ function sendHome(w,silent){
 }
 function connect(w,name){
   const p=ports[name];
+  if(!!w.clamp!==(p.type==='power')){toast(w.clamp?'Die Klemme gehört an einen Pol: an die Batterie oder an Plus/Minus der Bombe.':'Dieser Stecker passt nicht an einen Pol. Er gehört in ein Loch.','warn',2600);if(!w.port)sendHome(w,true);return;}
   if(p.wire===w){selected=null;renderWires();return;}
   if(p.wire){sendHome(p.wire,true);}
   if(w.port)ports[w.port].wire=null;
   w.port=name;p.wire=w;selected=null;
   SFX.whoosh();
-  movePlug(w,p.socket,IDQ,0.5).then(done=>{if(done&&w.port===name){SFX.connect();sparks(bomb.localToWorld(p.socket.clone().add(new THREE.Vector3(0,0,0.1))));}});
+  movePlug(w,p.socket,p.quat||IDQ,0.5).then(done=>{if(done&&w.port===name){if(w.clamp)SFX.clamp();else SFX.connect();sparks(bomb.localToWorld(p.socket.clone().add(new THREE.Vector3(0,w.clamp?0.05:0,w.clamp?0:0.1))));}});
   renderWires();
 }
 function evaluate(){
-  const lv=LEVELS[cur];let correct=0,connected=0;const total=Object.keys(lv.solution).length;
-  wires.forEach(w=>{if(w.port)connected++;if(lv.solution[w.name]&&lv.solution[w.name]===w.port)correct++;});
-  const extra=wires.some(w=>!lv.solution[w.name]&&w.port);
-  const timeOk=time.h===lv.time[0]&&time.m===lv.time[1];
-  return {ok:correct===total&&!extra&&timeOk,correct,total,connected,timeOk};
+  const lv=LEVELS[cur];let sol=lv.solution.day?lv.solution[phase]:lv.solution;
+  if(lv.nightSwap&&phase==='night'){sol={...sol};for(const k in sol){if(sol[k]==='sonne')sol[k]='mond';else if(sol[k]==='mond')sol[k]='sonne';}}
+  let correct=0,connected=0;const total=Object.keys(sol).length;
+  wires.forEach(w=>{if(w.port)connected++;if(!w.clamp&&sol[w.name]&&sol[w.name]===w.port)correct++;});
+  const extra=wires.some(w=>!w.clamp&&!sol[w.name]&&w.port);
+  const power=lv.power?evalPower(lv):'ok';
+  const tt=lv.timeFn?lv.timeFn(countN):lv.time;
+  const timeOk=time.h===tt[0]&&time.m===tt[1];
+  return {ok:correct===total&&!extra&&timeOk&&power==='ok',correct,total,connected,timeOk,power};
 }
 
 /* ------------------------------------------------------------------ Panel */
@@ -888,23 +1243,25 @@ function renderClues(){
   const lv=LEVELS[cur];
   $('#lvlNum').textContent=`Level ${cur+1}/${LEVELS.length}`;
   $('#lvlName').textContent=lv.name;
-  $('#clues').innerHTML=lv.clues.map(c=>typeof c==='string'?`<li>${c}</li>`:`<li class="wolf">${PAW}${c.t}</li>`).join('');
+  $('#clues').innerHTML=lv.clues.map(c=>typeof c==='string'?`<li>${c}</li>`:c.phase?`<li class="ph-${c.phase}" data-phase="${c.phase}">${clueHTML(c)}</li>`:`<li class="wolf">${clueHTML(c)}</li>`).join('');
   renderCards();
 }
 function renderWires(){}
+const clueHTML=c=>typeof c==='string'?c:c.phase?`${c.phase==='day'?SUN_I:MOON_I}${c.t}`:`${PAW}${c.t}`;
+function markPhase(){document.querySelectorAll('[data-phase]').forEach(el=>el.classList.toggle('off',el.dataset.phase!==phase));}
 const MOBILE_Q=matchMedia('(max-width:760px) and (orientation:portrait), (max-width:520px)');
 const slideWrap=document.querySelector('.slide-wrap'),cardsEl=$('#cards'),dotsEl=$('#dots');
-const clueHTML=c=>typeof c==='string'?c:`${PAW}${c.t}`;
+
 function renderCards(){
   const lv=LEVELS[cur],n=lv.clues.length;
   $('#panel').appendChild(slideWrap);
   const intro=cur===0?'<p class="cc-how">Kabel aus dem Gras ins passende Loch ziehen. Den Minutenzeiger am Wecker im Kreis drehen. Antippen zeigt den ganzen Zettel.</p>':'';
   let h=`<article class="cc cc-title" data-sheet><span class="cc-k">Hinweiszettel · Level ${cur+1}/${LEVELS.length}</span><h2 class="cc-name">${lv.name}</h2>${intro}<span class="cc-hint">Nach links wischen für die Hinweise</span></article>`;
-  lv.clues.forEach((c,i)=>{h+=`<article class="cc${typeof c==='string'?'':' wolf'}" data-sheet><span class="cc-k">Hinweis ${i+1}/${n}</span><p class="cc-t">${clueHTML(c)}</p></article>`;});
+  lv.clues.forEach((c,i)=>{const cls=typeof c==='string'?'':c.phase?` ph-${c.phase}`:' wolf',ph=c&&c.phase?` data-phase="${c.phase}"`:'';h+=`<article class="cc${cls}"${ph} data-sheet><span class="cc-k">Hinweis ${i+1}/${n}</span><p class="cc-t">${clueHTML(c)}</p></article>`;});
   h+=`<article class="cc cc-arm"><span class="cc-k">Scharf stellen</span><p class="cc-t">Alles gesteckt und gestellt? Dann das Schaf rüberschieben.</p><div id="slideSlot"></div></article>`;
   cardsEl.innerHTML=h;cardsEl.scrollLeft=0;
   dotsEl.innerHTML=Array.from({length:n+2},(_,i)=>`<button aria-label="Karte ${i+1}" data-i="${i}"${i===0?' class="on"':''}></button>`).join('');
-  placeSlider();
+  placeSlider();markPhase();
 }
 function placeSlider(){
   const tgt=MOBILE_Q.matches?$('#slideSlot'):$('#panel');
@@ -974,12 +1331,14 @@ async function triggerArm(){
     await animateSlideTo(0,400);sl.locked=false;return;
   }
   attempts++;updateTries();
+  if(!r.ok&&award(LEVELS[cur].id,1))banner('+1 Schaf fürs Mitspielen! Das nächste Level ist frei.',3200,'');
   if(r.ok)await winSequence();else await failSequence(r);
 }
 
 function hideWolf(){WOLF.g.visible=false;const cfg=LEVELS[cur].wolf;if(cfg){wolf.mode='wait';wolf.next=cfg.every[0];}}
 async function timeoutSequence(){
   if(busy)return;busy=true;attempts++;updateTries();hideWolf();selected=null;
+  if(award(LEVELS[cur].id,1))banner('+1 Schaf fürs Mitspielen! Das nächste Level ist frei.',3200,'');
   setFuse(0.04);SFX.fizzle();smokePuff();shake=reduceMotion?0.05:0.3;
   await wait(650);
   sheepMode='flee';sheep.visible=true;sheep.scale.setScalar(0.9);sheep.position.set(0.4,GROUND,1.3);sheep.rotation.set(0,Math.PI/2,0);sheepHead.rotation.x=0;
@@ -987,6 +1346,24 @@ async function timeoutSequence(){
   toast('<b>Lunte abgebrannt!</b> Pfft. Das Schaf ist beleidigt abgehauen. Neuer Versuch.','warn',3400);
   await tween(1.6,k=>{sheep.position.x=0.4+k*9;sheep.position.y=GROUND+Math.abs(Math.sin(k*Math.PI*6))*0.5;},k=>k);
   sheep.visible=false;sheepMode='win';await wait(400);loadLevel(cur,true,true);
+}
+function feedback(r){
+  const lv=LEVELS[cur];let pw='';
+  if(lv.power)pw=r.power==='none'?' Die Bombe hat keinen Saft.':r.power==='weak'?` Zu wenig Saft: Die Bombe braucht ${lv.power.need} Mähgawatt.`:' Der Strom fließt.';
+  return `${r.correct} von ${r.total} Verbindungen stimmen. ${r.timeOk?'Die Weckzeit passt.':'Die Weckzeit passt nicht.'}${pw}`;
+}
+async function kurzschurSequence(r){
+  busy=true;hideWolf();setStatus('scharf');slide.classList.add('armed');SFX.armClick();
+  await wait(300);SFX.zap();shake=reduceMotion?0.1:0.9;
+  const f=$('#flash');f.classList.remove('go');void f.offsetWidth;f.classList.add('go');
+  ['post+','post-'].forEach(k=>{const p=ports[k];if(p){const wp=bomb.localToWorld(p.socket.clone());for(let i=0;i<3;i++)sparks(wp);}});
+  await wait(300);SFX.zap();woolBurst();
+  SHORN.g.visible=true;SHORN.g.position.set(0,GROUND,1.7);SHORN.g.rotation.set(0,0,0);SHORN.g.scale.setScalar(0.001);shornT0=T;
+  await wait(250);SFX.bleat(1.45,0.8,0.8);
+  const m=$('#maeh'),tx=m.querySelector('.txt');m.classList.add('zap');tx.textContent='KURZSCHUR!';m.classList.remove('out');m.hidden=false;
+  await wait(1900);m.classList.add('out');await wait(450);m.hidden=true;m.classList.remove('zap');tx.textContent='MÄÄÄÄH!';
+  await wait(200);SHORN.g.visible=false;loadLevel(cur,true,true);
+  toast(`<b>Kurzschur!</b> Falsch gepolt, das Schaf ist jetzt nackt. ${feedback(r).replace(' Der Strom fließt.','')} Nochmal von vorn.`,'warn',5200);
 }
 async function wolfFailSequence(r){
   busy=true;hideWolf();setStatus('scharf');slide.classList.add('armed');SFX.armClick();
@@ -998,21 +1375,29 @@ async function wolfFailSequence(r){
   const m=$('#maeh'),tx=m.querySelector('.txt');m.classList.add('wolf');tx.textContent='AUUUUH!';m.classList.remove('out');m.hidden=false;
   await wait(1900);m.classList.add('out');await wait(450);m.hidden=true;m.classList.remove('wolf');tx.textContent='MÄÄÄÄH!';
   await wait(200);loadLevel(cur,true,true);
-  toast(`<b>Wolf im Schafspelz!</b> ${r.correct} von ${r.total} Verbindungen stimmen. ${r.timeOk?'Die Weckzeit passt.':'Die Weckzeit passt nicht.'} Alles nochmal von vorn.`,'warn',5200);
+  toast(`<b>Wolf im Schafspelz!</b> ${feedback(r)} Alles nochmal von vorn.`,'warn',5200);
 }
 async function failSequence(r){
+  if(r.power==='short')return kurzschurSequence(r);
   if(LEVELS[cur].wolf)return wolfFailSequence(r);
   busy=true;setStatus('scharf');slide.classList.add('armed');SFX.armClick();
   await wait(250);SFX.fizzle();smokePuff();shake=reduceMotion?0.05:0.3;ringing=0.5;
   await wait(700);setStatus('gesichert');slide.classList.remove('armed');
   SFX.bleat(1.25,0.4,0.5);
-  const msg=`<b>Fehlzündung!</b> ${r.correct} von ${r.total} Verbindungen stimmen. ${r.timeOk?'Die Weckzeit passt.':'Die Weckzeit passt nicht.'}`;
+  const msg=`<b>Fehlzündung!</b> ${feedback(r)}`;
   toast(msg,'warn',4500);
   await animateSlideTo(0,450);sl.locked=false;busy=false;
 }
 
+async function sheepToHerd(){
+  const [hx,hz]=HERD_POS[cur%HERD_POS.length];sheepMode='jump';
+  const from=sheep.position.clone(),to=new THREE.Vector3(hx,GROUND,hz),s0=sheep.scale.x;
+  sheep.rotation.set(0,Math.atan2(to.x-from.x,to.z-from.z),0);SFX.hop(false);
+  await tween(reduceMotion?0.3:1.5,k=>{sheep.position.lerpVectors(from,to,k);sheep.position.y=GROUND+Math.sin(Math.PI*k)*3.2;sheep.scale.setScalar(s0+(0.62-s0)*k);},k=>k);
+  sheep.visible=false;sheepMode='win';progress.herd[LEVELS[cur].id]=true;buildHerd();
+}
 async function winSequence(){
-  busy=true;selected=null;hideWolf();setStatus('scharf');slide.classList.add('armed');SFX.armClick();
+  busy=true;selected=null;hideWolf();hideBanner();$('#gateBtn').hidden=true;setStatus('scharf');slide.classList.add('armed');SFX.armClick();
   await wait(350);
   ringing=1.5;SFX.alarm(1.5);
   await wait(1500);
@@ -1031,29 +1416,42 @@ async function winSequence(){
   const R=$('#logoR');R.classList.remove('collapsed');R.classList.add('gone');setTimeout(()=>R.classList.add('collapsed'),1100);
   await wait(2000);m.classList.add('out');
   await wait(450);m.hidden=true;
+  await sheepToHerd();
   showWin();
 }
 
 /* ------------------------------------------------------------------ Screens */
-function starsFor(a){return a<=1?3:a===2?2:1;}
-function unlocked(i){return i===0||(progress.stars[LEVELS[i-1].id]||0)>0;}
+const UNLOCK_ALL=true; // vorübergehend: alle Level zum Testen frei
+function award(id,n){if((progress.stars[id]||0)<n){progress.stars[id]=n;store.set(progress);return true;}return false;}
+function parTime(lv){return lv.par||(lv.timeLimit?Math.round(lv.timeLimit*0.55):75);}
+function worldSheep(w){return LEVELS.filter(l=>l.world===w).reduce((a,l)=>a+(progress.stars[l.id]||0),0);}
+function worldOpen(w){return w===1||worldSheep(w-1)>=WORLD_NEED;}
+function unlocked(i){
+  if(UNLOCK_ALL)return true;const lv=LEVELS[i];if(!worldOpen(lv.world))return false;
+  const prev=LEVELS[i-1];return !prev||prev.world!==lv.world||(progress.stars[prev.id]||0)>=1;
+}
+const fmtT=s=>`${Math.floor(s/60)}:${String(Math.floor(s%60)).padStart(2,'0')}`;
 function renderLevelGrid(){
-  $('#levelGrid').innerHTML=LEVELS.map((lv,i)=>{
-    const st=progress.stars[lv.id]||0,ok=unlocked(i);
-    return `<button class="lvl-tile" data-i="${i}" ${ok?'':'disabled'}><span class="n">Level ${i+1}</span><span class="nm">${lv.name}</span>${ok?starsHTML(st):'<span class="fine">gesperrt</span>'}</button>`;
-  }).join('');
+  const tile=(lv,i)=>{const st=progress.stars[lv.id]||0,ok=unlocked(i),miss=st>=2&&!progress.herd[lv.id];
+    return `<button class="lvl-tile" data-i="${i}" ${ok?'':'disabled'}><span class="n">Level ${i+1}</span><span class="nm">${lv.name}</span>${ok?starsHTML(st):'<span class="fine">gesperrt</span>'}${miss?'<span class="miss">Schaf fehlt</span>':''}</button>`;};
+  const worlds=[...new Set(LEVELS.map(l=>l.world))];
+  const max=w=>LEVELS.filter(l=>l.world===w).length*3;
+  $('#levelGrid').innerHTML=worlds.map(w=>{const open=worldOpen(w),need=WORLD_NEED-worldSheep(w-1);
+    return `<section><h3 class="world-h"><span>Welt ${w}</span> ${WORLDS[w-1]} <small class="world-n">${worldSheep(w)}/${max(w)} Schafe</small></h3>${open?'':`<p class="world-lock">Noch ${need} ${need===1?'Schaf':'Schafe'} aus Welt ${w-1} nötig${UNLOCK_ALL?' (zum Testen trotzdem offen)':''}.</p>`}<div class="lvl-grid">${LEVELS.map((lv,i)=>lv.world===w?tile(lv,i):'').join('')}</div></section>`;}).join('');
   document.querySelectorAll('.lvl-tile').forEach(b=>b.addEventListener('click',()=>{SFX.init();closeOverlay('#startScreen');loadLevel(+b.dataset.i);}));
 }
 function openOverlay(id){overlayOpen=true;$(id).hidden=false;}
-function closeOverlay(id){$(id).hidden=true;overlayOpen=!$('#startScreen').hidden||!$('#winScreen').hidden;}
+function closeOverlay(id){$(id).hidden=true;overlayOpen=!$('#startScreen').hidden||!$('#winScreen').hidden||!$('#ruleScreen').hidden;}
+$('#ruleOk').addEventListener('click',()=>{SFX.init();closeOverlay('#ruleScreen');});
 function showWin(){
-  const lv=LEVELS[cur],st=starsFor(attempts);
-  progress.stars[lv.id]=Math.max(progress.stars[lv.id]||0,st);store.set(progress);buildHerd();
+  const lv=LEVELS[cur],par=parTime(lv),fast=levelClock<=par,st=fast?3:2,before=worldOpen(lv.world+1);
+  award(lv.id,st);progress.herd[lv.id]=true;store.set(progress);buildHerd();
+  const opened=!before&&worldOpen(lv.world+1)&&LEVELS.some(l=>l.world===lv.world+1);
   const last=cur===LEVELS.length-1;
   $('#winTitle').textContent=last?'Alle Schafe gestellt!':'Schaf gestellt!';
   $('#winText').textContent=last
-    ?`Du hast die ganze Herde scharf gestellt. ${attempts===1?'Und das beim ersten Versuch.':'Gebraucht hast du '+attempts+' Versuche.'} Ab sofort offiziell: Oberschäfer:in.`
-    :`${QUIPS[Math.floor(Math.random()*QUIPS.length)]} Level ${cur+1} in ${attempts} ${attempts===1?'Versuch':'Versuchen'}.`;
+    ?`Du hast die ganze Herde scharf gestellt, das letzte Level in ${fmtT(levelClock)}. Ab sofort offiziell: Oberschäfer:in.`
+    :`${QUIPS[Math.floor(Math.random()*QUIPS.length)]} Geschafft in ${fmtT(levelClock)}: ${fast?'schnell genug für 3 Schafe!':`2 Schafe. Unter ${fmtT(par)} gibt es 3.`}${opened?` Welt ${lv.world+1} ist jetzt frei!`:''}`;
   $('#winStars').innerHTML=starsHTML(st);
   $('#nextBtn').textContent=last?'Von vorn':'Nächstes Level';
   openOverlay('#winScreen');SFX.jingle();
@@ -1064,27 +1462,30 @@ $('#againBtn').addEventListener('click',()=>{closeOverlay('#winScreen');loadLeve
 $('#winMenuBtn').addEventListener('click',()=>{closeOverlay('#winScreen');renderLevelGrid();openOverlay('#startScreen');});
 $('#menuBtn').addEventListener('click',()=>{SFX.init();if(busy)return;renderLevelGrid();openOverlay('#startScreen');});
 $('#playBtn').addEventListener('click',()=>{
-  SFX.init();let i=LEVELS.findIndex((lv,k)=>unlocked(k)&&!progress.stars[lv.id]);if(i<0)i=0;
+  SFX.init();let i=LEVELS.findIndex((lv,k)=>unlocked(k)&&(progress.stars[lv.id]||0)<2);if(i<0)i=0;
   closeOverlay('#startScreen');loadLevel(i);
 });
 $('#soundBtn').addEventListener('click',()=>{SFX.init();SFX.setOn(!SFX.on);progress.sound=SFX.on;store.set(progress);renderSoundBtn();});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('#startScreen').hidden&&!busy&&bomb){closeOverlay('#startScreen');}});
 
 function loadLevel(i,keep,quiet){
-  cur=i;if(!keep)attempts=0;dragW=null;selected=null;hovered=null;busy=true;tension=0;ringing=0;
+  cur=i;if(!keep)attempts=0;dragW=null;levelClock=0;resetGate();selected=null;hovered=null;busy=true;tension=0;ringing=0;
   updateTries();setStatus('gesichert');
   const R=$('#logoR');R.classList.remove('gone','collapsed');
-  sheep.visible=false;sheepMode='win';COSTUME.g.visible=false;
+  sheep.visible=false;sheepMode='win';COSTUME.g.visible=false;SHORN.g.visible=false;
   clockMin=0;syncTime();
   timer.left=LEVELS[i].timeLimit||0;timer.shown=-1;timer.warn=0;renderTimer();
   WOLF.g.visible=false;wolf.mode=LEVELS[i].wolf?'wait':'off';wolf.next=10;wolf.warned=false;wolf.side=Math.random()<0.5?-1:1;
-  buildBomb(LEVELS[i]);renderClues();
+  {const lv=LEVELS[i];phase=lv.night?'night':'day';dayK=lv.night?0:1;darkK=lv.dark?1:0;setupCount(lv);torchAim.set(0,-0.9,1.0);hideBanner();
+   if(lv.cycle)cyc.t=lv.cycle.day[0]+Math.random()*(lv.cycle.day[1]-lv.cycle.day[0]);
+   if(lv.intro==='nightRule'&&!keep)setTimeout(()=>openOverlay('#ruleScreen'),1200);}
+  buildBomb(LEVELS[i]);renderClues();renderPhaseChip();
   slide.classList.toggle('reverse',!!LEVELS[i].reverse);slide.classList.remove('armed');
   $('#slideLabel').innerHTML=LEVELS[i].reverse?(LEVELS[i].id==='l5'?'<span>Geisterschaf: <b>andersrum</b> schieben</span>':'<span>Rückwärts: <b>andersrum</b> schieben</span>'):'<span><b>Schaf</b> schieben, <b>scharf</b> stellen</span>';
   sl.p=0;sl.locked=false;renderSlide();
   bomb.position.y=7;let landed=false;
   tween(reduceMotion?0.2:1.0,k=>{bomb.position.y=7*(1-k);if(!landed&&k>0.36){landed=true;SFX.plonk();shake=Math.max(shake,0.25);}},reduceMotion?E.outCubic:E.outBounce).then(()=>{busy=false;});
-  if(!quiet)toast(`<b>Level ${i+1}: ${LEVELS[i].name}.</b> ${LEVELS[i].wolf?'Vorsicht, Wolf! ':''}${LEVELS[i].timeLimit?'Die Lunte brennt.':'Lies den Hinweiszettel.'}`,'info',2800);
+  if(!quiet)toast(`<b>Level ${i+1}: ${LEVELS[i].name}.</b> ${LEVELS[i].wolf?'Vorsicht, Wolf! ':''}${LEVELS[i].dark?'Taschenlampe an! ':''}${LEVELS[i].count?'Schäfchen zählen! ':''}${LEVELS[i].power?'Erst Strom anschließen! ':''}${LEVELS[i].gate?'Pass auf das Gatter auf! ':''}${LEVELS[i].timeLimit?'Die Lunte brennt.':'Lies den Hinweiszettel.'}`,'info',2800);
   layout();
 }
 
@@ -1092,11 +1493,22 @@ function loadLevel(i,keep,quiet){
 const ray=new THREE.Raycaster(),ndc=new THREE.Vector2();
 function rayFrom(e){const r=canvas.getBoundingClientRect();ndc.set(((e.clientX-r.left)/r.width)*2-1,-((e.clientY-r.top)/r.height)*2+1);ray.setFromCamera(ndc,camera);}
 function pick(e){
-  rayFrom(e);const list=WOLF.g.visible?pickables.concat([WOLF.hit]):pickables;
-  const hits=ray.intersectObjects(list,false);return hits.length?hits[0].object.userData:null;
+  rayFrom(e);
+  if(frostList.length){const fh=ray.intersectObjects(frostList,false);if(fh.length)return {type:'frost',mesh:fh[0].object};}
+  let list=WOLF.g.visible?pickables.concat([WOLF.hit]):pickables;
+  if(gate.state==='open')list=list.concat([gateHit]);
+  if(gate.strays.length)list=list.concat(gate.strays.filter(s=>s.mode==='stand'||s.mode==='out').map(s=>s.h.hit));
+  const hits=ray.intersectObjects(list,false);if(!hits.length)return null;
+  const ud=hits[0].object.userData;
+  if(ud.type==='port'&&ports[ud.port]&&ports[ud.port].wire&&!ports[ud.port].wire.moving)return {type:'plug',wire:ports[ud.port].wire};
+  return ud;
 }
-function pickPort(e){rayFrom(e);const hits=ray.intersectObjects(pickables.filter(o=>o.userData.type==='port'),false);return hits.length?hits[0].object.userData.port:null;}
+function pickPort(e){rayFrom(e);const want=dragW&&dragW.clamp;const hits=ray.intersectObjects(pickables.filter(o=>o.userData.type==='port'&&(!dragW||(ports[o.userData.port].type==='power')===!!want)),false);return hits.length?hits[0].object.userData.port:null;}
 const tmpPlane=new THREE.Plane(),tmpV=new THREE.Vector3(),tmpN=new THREE.Vector3();
+function aimTorch(e){
+  if(darkK<0.01)return;rayFrom(e);camera.getWorldDirection(tmpN).negate();
+  tmpPlane.setFromNormalAndCoplanarPoint(tmpN,tmpV.set(0,-0.6,1.0));const p=new THREE.Vector3();if(ray.ray.intersectPlane(tmpPlane,p))torchAim.copy(p);
+}
 function clockAngle(e){
   rayFrom(e);clock.updateMatrixWorld();
   const n=new THREE.Vector3(0,0,1).transformDirection(clock.matrixWorld),c=new THREE.Vector3().setFromMatrixPosition(clock.matrixWorld);
@@ -1123,17 +1535,18 @@ function endPlugDrag(e){
 }
 let down=null,wheelAcc=0;
 canvas.addEventListener('pointerdown',e=>{
-  SFX.init();const hit=(busy||overlayOpen)?null:pick(e);
+  SFX.init();aimTorch(e);const hit=(busy||overlayOpen)?null:pick(e);
   down={x:e.clientX,y:e.clientY,yaw:view.yaw,pitch:view.pitch,mode:null,hit};
   try{canvas.setPointerCapture(e.pointerId);}catch(_){}
 });
 canvas.addEventListener('pointermove',e=>{
+  aimTorch(e);
   if(down){
     const dx=e.clientX-down.x,dy=e.clientY-down.y;
     if(!down.mode&&Math.hypot(dx,dy)>7){
       const h=down.hit;
       if(h&&h.type==='clock'&&!busy){down.mode='clock';down.ang=clockAngle(e);down.step=Math.round(clockMin/5);}
-      else if(h&&h.type==='plug'&&!busy&&!h.wire.moving){down.mode='plug';startPlugDrag(h.wire);}
+      else if(h&&h.type==='plug'&&!busy&&!h.wire.moving&&!h.wire.blocked){down.mode='plug';startPlugDrag(h.wire);}
       else down.mode='orbit';
       canvas.classList.add('dragging');
     }
@@ -1167,9 +1580,19 @@ document.addEventListener('keydown',e=>{
   if(busy||overlayOpen)return;const a=document.activeElement;if(a&&a!==document.body&&a!==canvas)return;
   const d={ArrowUp:5,ArrowDown:-5,PageUp:60,PageDown:-60}[e.key];if(d){e.preventDefault();nudgeClock(d);}
 });
+const iceMat=new THREE.MeshBasicMaterial({color:0xe6f6ff});
+function scrapeFrost(m){
+  m.userData.hp--;SFX.scrape();m.updateMatrixWorld();const wp=new THREE.Vector3().setFromMatrixPosition(m.matrixWorld);
+  for(let i=0;i<8;i++)spawn(iceMat,wp,new THREE.Vector3((Math.random()-.5)*2.4,Math.random()*1.8,Math.random()*1.4),0.03+Math.random()*0.03,0.5+Math.random()*0.3,{gravity:6});
+  if(m.userData.hp<=0){m.visible=false;frostList.splice(frostList.indexOf(m),1);}else m.material.opacity=0.35+m.userData.hp*0.2;
+}
 function onPick(ud){
   if(busy||overlayOpen)return;
   if(ud&&ud.type==='wolf'){scareWolf();return;}
+  if(ud&&ud.type==='gate'){closeGate();return;}
+  if(ud&&ud.type==='stray'){sendStrayHome(ud.st);return;}
+  if(ud&&ud.type==='plug'&&ud.wire.blocked){toast('Da steht ein Schaf drauf! Tipp erst das Schaf an.','warn',2200);return;}
+  if(ud&&ud.type==='frost'){scrapeFrost(ud.mesh);return;}
   if(ud&&ud.type==='clock'){toast('Zum Einstellen den Minutenzeiger am Wecker im Kreis ziehen. Mit der Maus geht auch das Mausrad.','info',2800);return;}
   if(!ud){if(selected){selected=null;SFX.deselect();renderWires();}return;}
   if(ud.type==='plug'){
@@ -1211,7 +1634,7 @@ function layout(){
   if(mobile)bottom=Math.max(hudB+160,$('#deck').getBoundingClientRect().top);else right=Math.max(240,$('#panel').getBoundingClientRect().left);
   const aw=right-left,ah=bottom-top;
   camera.setViewOffset(W,H,W/2-(left+right)/2,H/2-(top+bottom)/2,W,H);
-  fitBomb(aw,ah,H,mobile);
+  fitBomb(aw,ah,H,mobile);jumpX=mobile?1.2:3.6;jumpH=mobile?2.4:1.8;
   camera.updateProjectionMatrix();
   renderSlide();
 }
@@ -1219,7 +1642,24 @@ addEventListener('resize',layout);
 if(window.ResizeObserver){const ro=new ResizeObserver(layout);ro.observe($('#panel'));ro.observe($('#deck'));}
 
 /* ------------------------------------------------------------------ Loop */
-let T=0,last=performance.now(),lastSec=0;
+let T=0,last=performance.now(),lastSec=0,crk=1,levelClock=0;
+let bannerTimer=0;
+function banner(html,ms,cls){const b=$('#banner');b.innerHTML=html;b.className=cls||'';b.hidden=false;clearTimeout(bannerTimer);if(ms)bannerTimer=setTimeout(()=>{b.hidden=true;},ms);}
+function hideBanner(){clearTimeout(bannerTimer);$('#banner').hidden=true;}
+const cyc={t:0};
+function renderPhaseChip(){
+  const lv=LEVELS[cur],c=$('#phaseChip');c.hidden=!lv.nightSwap;if(!lv.nightSwap)return;
+  c.dataset.ph=phase;c.innerHTML=phase==='day'?`${SUN_I}<span class="lbl">Tag</span>`:`${MOON_I}<span class="lbl">Nacht: Sonne ⇄ Mond</span>`;
+  c.setAttribute('aria-label',phase==='day'?'Tag':'Nacht, Sonne und Mond sind getauscht');
+}
+function setPhase(ph){
+  const lv=LEVELS[cur];phase=ph;markPhase();renderPhaseChip();
+  const d0=dayK,k0=darkK,d1=ph==='day'?1:0,k1=(ph==='night'&&lv.darkAtNight)?1:0;
+  tween(reduceMotion?0.4:3,k=>{dayK=d0+(d1-d0)*k;darkK=k0+(k1-k0)*k;},k=>k);
+  if(lv.cycle){const r=ph==='day'?lv.cycle.day:lv.cycle.night;cyc.t=r[0]+Math.random()*(r[1]-r[0]);}
+  if(ph==='night'){banner(`${MOON_I} Nacht!${lv.nightSwap?' Sonne ⇄ Mond':''}`,2800,'night');SFX.cricket();SFX.beep(520);}
+  else{banner(`${SUN_I} Tag!${lv.nightSwap?' Sonne und Mond wieder normal':''}`,2600,'');SFX.beep(880);}
+}
 const angH=()=>-(clockMin/720)*Math.PI*2,angM=()=>-((clockMin%60)/60)*Math.PI*2;
 function faceTo(dx,dz){WOLF.g.rotation.y=Math.atan2(dx,dz);}
 function animWolf(speed,bob,crouch){const p=T*speed;WOLF.legs.forEach((L,i)=>{L.rotation.x=Math.sin(p+((i===0||i===3)?0:Math.PI))*0.6;});WOLF.body.position.y=(crouch?-0.12:0)+Math.abs(Math.sin(p))*bob;WOLF.tail.rotation.y=Math.sin(p*0.7)*0.4;}
@@ -1241,7 +1681,7 @@ function updateWolf(dt){
     if(k>=1){
       wolf.mode='grab';wolf.t=0;
       const conn=wires.filter(w=>w.port&&!w.moving);
-      if(conn.length){const w=conn[Math.floor(Math.random()*conn.length)];SFX.growl(0.8);sendHome(w,true);SFX.unplug();toast(`Der Wolf hat das Kabel <b>${WIRE[w.name].label}</b> rausgerissen!`,'warn',2600);}
+      if(conn.length){const w=conn[Math.floor(Math.random()*conn.length)];SFX.growl(0.8);sendHome(w,true);SFX.unplug();toast(w.clamp?'Der Wolf hat eine <b>Starthilfeklemme</b> abgerissen!':`Der Wolf hat das Kabel <b>${WIRE[w.name].label}</b> rausgerissen!`,'warn',2600);}
       else SFX.growl(0.4);
     }
   }else if(wolf.mode==='grab'){
@@ -1296,23 +1736,37 @@ function frame(now){
       sticks.forEach((s,i)=>{const k=1+tension*0.05*(0.5+0.5*Math.sin(T*28+i));s.scale.set(k,1,k);});}
     else if(bomb.position.x!==0){bomb.position.x=0;bomb.position.z=0;sticks.forEach(s=>s.scale.set(1,1,1));}
     // Lunte & Wolf
-    const lv=LEVELS[cur],live=!busy&&!overlayOpen&&bomb.visible;
-    if(lv.timeLimit&&live){
+    const lv=LEVELS[cur],counting=countState!=='off',live=!busy&&!overlayOpen&&bomb.visible;
+    if(lv.timeLimit&&live&&!counting){
       timer.left=Math.max(0,timer.left-dt);renderTimer();setFuse(timer.left/lv.timeLimit);
       timer.spark-=dt;if(timer.spark<=0){timer.spark=0.06;const tip=bomb.localToWorld(fuse.tip.clone());for(let k=0;k<2;k++)spawn(k?sparkMat:sparkMat2,tip,new THREE.Vector3((Math.random()-.5)*1.4,Math.random()*1.6+0.4,(Math.random()-.5)*1.4),0.022+Math.random()*0.018,0.25+Math.random()*0.2,{gravity:5});}
       timer.sz-=dt;if(timer.sz<=0){timer.sz=0.3;SFX.sizzle();}
       const s=Math.ceil(timer.left);if(timer.left>0&&timer.left<=10&&s!==timer.warn){timer.warn=s;SFX.warn();}
       if(timer.left<=0)timeoutSequence();
     }
-    if(lv.wolf&&live)updateWolf(dt);
+    if(lv.daySwitch&&phase==='day'&&live&&lv.timeLimit-timer.left>=lv.daySwitch)setPhase('night');
+    if(lv.cycle&&live&&!counting){cyc.t-=dt;if(cyc.t<=0)setPhase(phase==='day'?'night':'day');}
+    if(live&&!counting)levelClock+=dt;
+    if(lv.wolf&&live&&!counting)updateWolf(dt);
+    if(lv.gate&&live&&!counting)updateGate(dt);
     // Lampe
     const lm=lampMesh.material;
     if(lampState==='armed')lm.color.setHex(Math.sin(T*22)>0?0xff2b20:0x7a1410);
     else if(lampState==='safe')lm.color.setHex(0x2ecf6a);else lm.color.setHex(0x666666);
   }
 
+  // Tag/Nacht, Taschenlampe, Schäfchen
+  applyDaylight();
+  if(darkK>0.01){torch.position.copy(camera.position);torchTarget.position.lerp(torchAim,Math.min(1,dt*14));torch.angle=Math.atan(1.1/Math.max(1,camera.position.distanceTo(torchTarget.position)));}
+  if(!overlayOpen)updateCount(dt);
+  jumpLight.position.x=jumpX;jumpLight.intensity=countSeq.length?(1-dayK)*1.6:0;
+  if(dayK<0.5&&!overlayOpen){crk-=dt;if(crk<=0){crk=1.2+Math.random()*1.8;SFX.cricket();}}
+  // Koppel
+  {const want=(gate.state==='open'||gate.state==='raid')?1.45:0;gate.ang+=(want-gate.ang)*Math.min(1,dt*4);if(gateGroup)gateGroup.rotation.y=gate.ang;}
+  if(!overlayOpen){updateRaid(dt);updateStrays(dt);}
   // Herde & Wolf im Schafspelz
-  herdList.forEach(h=>{h.head.rotation.x=0.35+0.25*Math.sin(T*1.3+h.i*1.9);h.g.position.y=GROUND+Math.pow(Math.max(0,Math.sin(T*0.55+h.i*2.3)),24)*0.35;h.g.rotation.y=h.ry+Math.sin(T*0.2+h.i)*0.3;});
+  herdList.forEach(h=>{if(h.stray||h.away)return;h.head.rotation.x=0.35+0.25*Math.sin(T*1.3+h.i*1.9);h.g.position.y=GROUND+Math.pow(Math.max(0,Math.sin(T*0.55+h.i*2.3)),24)*0.35;h.g.rotation.y=h.ry+Math.sin(T*0.2+h.i)*0.3;});
+  if(SHORN.g.visible){const st=T-shornT0;SHORN.g.scale.setScalar(Math.max(0.001,E.outBack(Math.min(1,st/0.5))*1.3));SHORN.g.position.y=GROUND+Math.abs(Math.sin(st*7))*0.25;SHORN.g.rotation.y=Math.sin(st*9)*0.25;}
   if(COSTUME.g.visible){const st=T-costumeT0;COSTUME.g.scale.setScalar(Math.max(0.001,E.outBack(Math.min(1,st/0.5))*1.4));COSTUME.head.rotation.x=(st>0.25&&st<2.3)?-0.7:0;COSTUME.g.position.y=GROUND+(st>2.3?Math.abs(Math.sin((st-2.3)*5))*0.3:0);}
   // Schaf
   if(sheep.visible&&sheepMode==='win'){
@@ -1340,7 +1794,8 @@ function frame(now){
 
 /* ------------------------------------------------------------------ Start */
 // Szene mit Level 1 hinter dem Startbildschirm zeigen
-cur=0;buildBomb(LEVELS[0]);renderClues();syncTime();renderTimer();renderLevelGrid();buildHerd();
+$('#ruleSun').insertAdjacentHTML('afterbegin',SUN_I);$('#ruleMoon').insertAdjacentHTML('afterbegin',MOON_I);
+applyDaylight();cur=0;buildBomb(LEVELS[0]);renderClues();syncTime();renderTimer();renderLevelGrid();buildHerd();
 slide.classList.toggle('reverse',false);
 layout();renderSlide();
 requestAnimationFrame(t=>{last=t;requestAnimationFrame(frame);});
