@@ -1421,7 +1421,7 @@ async function winSequence(){
 }
 
 /* ------------------------------------------------------------------ Screens */
-const UNLOCK_ALL=true; // vorübergehend: alle Level zum Testen frei
+const UNLOCK_ALL=false; // true = alle Level zum Testen frei
 function award(id,n){if((progress.stars[id]||0)<n){progress.stars[id]=n;store.set(progress);return true;}return false;}
 function parTime(lv){return lv.par||(lv.timeLimit?Math.round(lv.timeLimit*0.55):75);}
 function worldSheep(w){return LEVELS.filter(l=>l.world===w).reduce((a,l)=>a+(progress.stars[l.id]||0),0);}
